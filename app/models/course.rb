@@ -1,6 +1,6 @@
 class Course < ApplicationRecord
 
-  has_many :instructors
+  has_many :students
 
   validates :name, presence: true
 

@@ -1,16 +1,19 @@
+#User data: Courses, Instructors and Students
+#Associations: Examiner, Supervisor for Students
+
 courses = {
-  S00: { name: "3D grafikus rendszerek", neptun: "BMEVIIIAC01" },
-  S01: { name: "Adatvezérelt alkalmazások fejlesztése", neptun: "BMEVIAUA369" },
-  S02: { name: "Adatvezérelt rendszerek", neptun: "BMEVIAUAC01" },
-  S03: { name: "Alkalmazásfejlesztési környezetek", neptun: "BMEVIAUAC04" },
-  S04: { name: "Informatikai rendszertervezés", neptun: "BMEVIMIAC01" },
-  S05: { name: "Integrációs és ellenőrzési technikák", neptun: "BMEVIMIAC04" },
-  S06: { name: "Intelligens rendszerfelügyelet", neptun: "BMEVIMIA370" },
-  S07: { name: "Kliensoldali technológiák", neptun: "BMEVIAUAC02" },
-  S08: { name: "Kooperatív és tanuló rendszerek", neptun: "BMEVIMIA357" },
-  S09: { name: "Mobil infokommunikációs rendszerek", neptun: "BMEVIHIA317" },
-  S10: { name: "Objektumorientált szoftvertervezés", neptun: "BMEVIIIAC00" },
-  S11: { name: "Objektumorientált szoftvertervezés", neptun: "BMEVIIIA371" }
+  S00: { name: "3D grafikus rendszerek",                 neptun: "BMEVIIIAC01" },
+  S01: { name: "Adatvezérelt alkalmazások fejlesztése",  neptun: "BMEVIAUA369" },
+  S02: { name: "Adatvezérelt rendszerek",                neptun: "BMEVIAUAC01" },
+  S03: { name: "Alkalmazásfejlesztési környezetek",      neptun: "BMEVIAUAC04" },
+  S04: { name: "Informatikai rendszertervezés",          neptun: "BMEVIMIAC01" },
+  S05: { name: "Integrációs és ellenőrzési technikák",   neptun: "BMEVIMIAC04" },
+  S06: { name: "Intelligens rendszerfelügyelet",         neptun: "BMEVIMIA370" },
+  S07: { name: "Kliensoldali technológiák",              neptun: "BMEVIAUAC02" },
+  S08: { name: "Kooperatív és tanuló rendszerek",        neptun: "BMEVIMIA357" },
+  S09: { name: "Mobil infokommunikációs rendszerek",     neptun: "BMEVIHIA317" },
+  S10: { name: "Objektumorientált szoftvertervezés",     neptun: "BMEVIIIAC00" },
+  S11: { name: "Objektumorientált szoftvertervezés",     neptun: "BMEVIIIA371" }
 }
 
 courses.each do |key, hash|
@@ -18,60 +21,59 @@ courses.each do |key, hash|
 end
 
 instructors = {
-  I00: { name: "Ács Judit", can_be_president: false, can_be_member: false, can_be_secretary: false },
-  I01: { name: "Albert István", can_be_president: false, can_be_member: false, can_be_secretary: false },
-  I02: { name: "Asztalos Márk", can_be_president: false, can_be_member: true, can_be_secretary: false },
-  I03: { name: "Benedek Zoltán", can_be_president: false, can_be_member: false, can_be_secretary: false },
-  I04: { name: "Blázovics László", can_be_president: false, can_be_member: true, can_be_secretary: false },
-  I05: { name: "Braun Patrik János", can_be_president: false, can_be_member: false, can_be_secretary: true },
-  I06: { name: "Budai Ádám", can_be_president: false, can_be_member: false, can_be_secretary: true },
-  I07: { name: "Charaf Hassan", can_be_president: true, can_be_member: false, can_be_secretary: false },
-  I08: { name: "Cserkúti Péter", can_be_president: false, can_be_member: false, can_be_secretary: false },
-  I09: { name: "Csorba Kristóf", can_be_president: false, can_be_member: true, can_be_secretary: false },
-  I10: { name: "Dudás Ákos", can_be_president: false, can_be_member: true, can_be_secretary: false },
-  I11: { name: "Dunaev Dmitriy", can_be_president: false, can_be_member: false, can_be_secretary: false },
-  I12: { name: "Ekler Péter", can_be_president: false, can_be_member: true, can_be_secretary: false },
-  I13: { name: "Fekete Tamás", can_be_president: false, can_be_member: false, can_be_secretary: true },
-  I14: { name: "Forstner Bertalan", can_be_president: true, can_be_member: false, can_be_secretary: false },
-  I15: { name: "Lengyel László", can_be_president: true, can_be_member: false, can_be_secretary: false },
-  I16: { name: "Gazdi László", can_be_president: false, can_be_member: false, can_be_secretary: true },
-  I17: { name: "Hideg Attila", can_be_president: false, can_be_member: false, can_be_secretary: true },
-  I18: { name: "Imre Gábor", can_be_president: false, can_be_member: false, can_be_secretary: false },
-  I19: { name: "Iváncsy Szabolcs", can_be_president: false, can_be_member: true, can_be_secretary: false },
-  I20: { name: "Jánoky László Viktor", can_be_president: false, can_be_member: false, can_be_secretary: true },
-  I21: { name: "Kovács Tibor", can_be_president: false, can_be_member: true, can_be_secretary: false },
-  I22: { name: "Kővári Bence András", can_be_president: false, can_be_member: true, can_be_secretary: false },
-  I23: { name: "Kövesdán Gábor", can_be_president: false, can_be_member: false, can_be_secretary: false },
-  I24: { name: "Kundra László János", can_be_president: false, can_be_member: false, can_be_secretary: false },
-  I25: { name: "Vajk István", can_be_president: true, can_be_member: false, can_be_secretary: false },
-  I26: { name: "Mezei Gergely", can_be_president: false, can_be_member: true, can_be_secretary: false },
-  I27: { name: "Pomázi Krisztián", can_be_president: false, can_be_member: false, can_be_secretary: true },
-  I28: { name: "Rajacsics Tamás", can_be_president: false, can_be_member: false, can_be_secretary: false },
-  I29: { name: "Recski Gábor András", can_be_president: false, can_be_member: true, can_be_secretary: false },
-  I30: { name: "Simon Gábor", can_be_president: false, can_be_member: false, can_be_secretary: false },
-  I31: { name: "Sipos Márton Ákos", can_be_president: false, can_be_member: false, can_be_secretary: false },
-  I32: { name: "Somogyi Ferenc Attila", can_be_president: false, can_be_member: false, can_be_secretary: true },
-  I33: { name: "Szabó Gábor", can_be_president: false, can_be_member: false, can_be_secretary: false },
-  I34: { name: "Tóth Tibor", can_be_president: false, can_be_member: false, can_be_secretary: false },
-  I35: { name: "Tömösközi Máté Ferenc", can_be_president: false, can_be_member: false, can_be_secretary: true },
-  I36: { name: "Szécsi László", can_be_president: false, can_be_member: false, can_be_secretary: false },
-  I37: { name: "Gincsai Gábor", can_be_president: false, can_be_member: false, can_be_secretary: false },
-  I38: { name: "Bányász Gábor", can_be_president: false, can_be_member: false, can_be_secretary: false },
-  I39: { name: "Filep Szabolcs", can_be_president: false, can_be_member: false, can_be_secretary: false },
-  I40: { name: "Micskei Zoltán Imre", can_be_president: false, can_be_member: false, can_be_secretary: false },
-  I41: { name: "Strausz György", can_be_president: false, can_be_member: false, can_be_secretary: false },
-  I42: { name: "Horváth Gábor", can_be_president: false, can_be_member: false, can_be_secretary: false },
-  I43: { name: "Goldschmidt Balázs", can_be_president: false, can_be_member: false, can_be_secretary: false },
-  I44: { name: "Hamar János Krisztián", can_be_president: false, can_be_member: false, can_be_secretary: false },
-  I45: { name: "Kökényesi Tamás", can_be_president: false, can_be_member: false, can_be_secretary: false },
-  I46: { name: "Kis-Nagy Dániel Dávid", can_be_president: false, can_be_member: false, can_be_secretary: false },
-  I47: { name: "Fazekas Péter", can_be_president: false, can_be_member: false, can_be_secretary: false }
+  I00: { name: "Ács Judit",              can_be_president: false,  can_be_member: false,  can_be_secretary: false  },
+  I01: { name: "Albert István",          can_be_president: false,  can_be_member: false,  can_be_secretary: false  },
+  I02: { name: "Asztalos Márk",          can_be_president: false,  can_be_member: true,   can_be_secretary: false  },
+  I03: { name: "Benedek Zoltán",         can_be_president: false,  can_be_member: false,  can_be_secretary: false  },
+  I04: { name: "Blázovics László",       can_be_president: false,  can_be_member: true,   can_be_secretary: false  },
+  I05: { name: "Braun Patrik János",     can_be_president: false,  can_be_member: false,  can_be_secretary: true   },
+  I06: { name: "Budai Ádám",             can_be_president: false,  can_be_member: false,  can_be_secretary: true   },
+  I07: { name: "Charaf Hassan",          can_be_president: true,   can_be_member: false,  can_be_secretary: false  },
+  I08: { name: "Cserkúti Péter",         can_be_president: false,  can_be_member: false,  can_be_secretary: false  },
+  I09: { name: "Csorba Kristóf",         can_be_president: false,  can_be_member: true,   can_be_secretary: false  },
+  I10: { name: "Dudás Ákos",             can_be_president: false,  can_be_member: true,   can_be_secretary: false  },
+  I11: { name: "Dunaev Dmitriy",         can_be_president: false,  can_be_member: false,  can_be_secretary: false  },
+  I12: { name: "Ekler Péter",            can_be_president: false,  can_be_member: true,   can_be_secretary: false  },
+  I13: { name: "Fekete Tamás",           can_be_president: false,  can_be_member: false,  can_be_secretary: true   },
+  I14: { name: "Forstner Bertalan",      can_be_president: true,   can_be_member: false,  can_be_secretary: false  },
+  I15: { name: "Lengyel László",         can_be_president: true,   can_be_member: false,  can_be_secretary: false  },
+  I16: { name: "Gazdi László",           can_be_president: false,  can_be_member: false,  can_be_secretary: true   },
+  I17: { name: "Hideg Attila",           can_be_president: false,  can_be_member: false,  can_be_secretary: true   },
+  I18: { name: "Imre Gábor",             can_be_president: false,  can_be_member: false,  can_be_secretary: false  },
+  I19: { name: "Iváncsy Szabolcs",       can_be_president: false,  can_be_member: true,   can_be_secretary: false  },
+  I20: { name: "Jánoky László Viktor",   can_be_president: false,  can_be_member: false,  can_be_secretary: true   },
+  I21: { name: "Kovács Tibor",           can_be_president: false,  can_be_member: true,   can_be_secretary: false  },
+  I22: { name: "Kővári Bence András",    can_be_president: false,  can_be_member: true,   can_be_secretary: false  },
+  I23: { name: "Kövesdán Gábor",         can_be_president: false,  can_be_member: false,  can_be_secretary: false  },
+  I24: { name: "Kundra László János",    can_be_president: false,  can_be_member: false,  can_be_secretary: false  },
+  I25: { name: "Vajk István",            can_be_president: true,   can_be_member: false,  can_be_secretary: false  },
+  I26: { name: "Mezei Gergely",          can_be_president: false,  can_be_member: true,   can_be_secretary: false  },
+  I27: { name: "Pomázi Krisztián",       can_be_president: false,  can_be_member: false,  can_be_secretary: true   },
+  I28: { name: "Rajacsics Tamás",        can_be_president: false,  can_be_member: false,  can_be_secretary: false  },
+  I29: { name: "Recski Gábor András",    can_be_president: false,  can_be_member: true,   can_be_secretary: false  },
+  I30: { name: "Simon Gábor",            can_be_president: false,  can_be_member: false,  can_be_secretary: false  },
+  I31: { name: "Sipos Márton Ákos",      can_be_president: false,  can_be_member: false,  can_be_secretary: false  },
+  I32: { name: "Somogyi Ferenc Attila",  can_be_president: false,  can_be_member: false,  can_be_secretary: true   },
+  I33: { name: "Szabó Gábor",            can_be_president: false,  can_be_member: false,  can_be_secretary: false  },
+  I34: { name: "Tóth Tibor",             can_be_president: false,  can_be_member: false,  can_be_secretary: false  },
+  I35: { name: "Tömösközi Máté Ferenc",  can_be_president: false,  can_be_member: false,  can_be_secretary: true   },
+  I36: { name: "Szécsi László",          can_be_president: false,  can_be_member: false,  can_be_secretary: false  },
+  I37: { name: "Gincsai Gábor",          can_be_president: false,  can_be_member: false,  can_be_secretary: false  },
+  I38: { name: "Bányász Gábor",          can_be_president: false,  can_be_member: false,  can_be_secretary: false  },
+  I39: { name: "Filep Szabolcs",         can_be_president: false,  can_be_member: false,  can_be_secretary: false  },
+  I40: { name: "Micskei Zoltán Imre",    can_be_president: false,  can_be_member: false,  can_be_secretary: false  },
+  I41: { name: "Strausz György",         can_be_president: false,  can_be_member: false,  can_be_secretary: false  },
+  I42: { name: "Horváth Gábor",          can_be_president: false,  can_be_member: false,  can_be_secretary: false  },
+  I43: { name: "Goldschmidt Balázs",     can_be_president: false,  can_be_member: false,  can_be_secretary: false  },
+  I44: { name: "Hamar János Krisztián",  can_be_president: false,  can_be_member: false,  can_be_secretary: false  },
+  I45: { name: "Kökényesi Tamás",        can_be_president: false,  can_be_member: false,  can_be_secretary: false  },
+  I46: { name: "Kis-Nagy Dániel Dávid",  can_be_president: false,  can_be_member: false,  can_be_secretary: false  },
+  I47: { name: "Fazekas Péter",          can_be_president: false,  can_be_member: false,  can_be_secretary: false  }
 }
 
-#in this seed the instructors are made with randomised neptun codes
 instructors.each do |key, hash|
   Instructor.create(  name:              hash[:name],
-                      email:             "example@gmail.com",
+                      email:             key.to_s + "@email.com",
   	                  can_be_president:  hash[:can_be_president],
   	                  can_be_secretary:  hash[:can_be_secretary],
   	                  can_be_member:     hash[:can_be_member] )
@@ -175,7 +177,7 @@ students = [
   [ "Velez Krisztián", "WFPTP9", "Ekler Péter", "BMEVIAUAC01" ],
   [ "Veszner Dávid", "U8UH4E", "Blázovics László", "BMEVIAUA369" ],
   [ "Zaymus Gábor Mihály", "DDUU2Y", "Benedek Zoltán", "BMEVIAUAC02" ],
-  [ "Zóka Dániel", "Y7G3ZL", "Kövesdán Gábor", "BMEVIAUAC01Zollai András" ],
+  [ "Zóka Dániel", "Y7G3ZL", "Kövesdán Gábor", "BMEVIAUAC01" ],
   [ "Zollai András", "A5X7OI", "Cserkúti Péter", "BMEVIAUAC02" ],
   [ "Zöld Máté", "GQH7FW", "Fekete Tamás", "BMEVIAUAC01" ]
 ]
@@ -183,5 +185,11 @@ students = [
 students.each do |name, neptun, supervisor, course_neptun|
   Student.create( name: name,
   	              neptun: neptun,
-                  email: "example@gmail.com")
+                  email: neptun.to_s + "@email.com",
+                  instructor_id: Instructor.find_by(name: supervisor).id,
+                  course_id: Course.find_by(neptun: course_neptun).id )
 end
+
+#Associations: Examiner, Supervisor, ExamCourse
+
+#Actual user profiles: Admin, Instructor, Student

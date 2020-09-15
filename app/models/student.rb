@@ -1,7 +1,7 @@
 class Student < ApplicationRecord
   
-  has_one :instructors
-  has_one :courses
+  belongs_to :instructor
+  belongs_to :course
 
   validates :name, presence: true
 

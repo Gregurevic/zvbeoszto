@@ -6,6 +6,8 @@ class CreateInstructors < ActiveRecord::Migration[6.0]
       t.boolean :can_be_president
       t.boolean :can_be_secretary
       t.boolean :can_be_member
+
+      t.timestamps null: false
     end
   end
 end
