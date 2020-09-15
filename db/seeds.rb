@@ -216,8 +216,8 @@ examiners = {
   E20: { course: "BMEVIIIA371", instructor: "Goldschmidt Balázs" }
 }
 
-examiners.each do |course, instructor|
-  Examiner.create(course_id: Course.find_by(neptun: course).id, instructor_id: Instructor.find_by(name: instructor).id )
+examiners.each do |key, hash|
+  Examiner.create(course_id: Course.find_by(neptun: hash[:course]).id, instructor_id: Instructor.find_by(name: hash[:instructor]).id )
 end
 
 #Actual user profiles: Admin, Instructor, Student
