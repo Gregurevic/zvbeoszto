@@ -1,5 +1,6 @@
 #User data: Courses, Instructors and Students
 #Associations: ExamCourse, Supervisor for Students
+#Creating user profiles: Instructor, Student
 
 courses = {
   S00: { name: "3D grafikus rendszerek",                 neptun: "BMEVIIIAC01" },
@@ -73,10 +74,14 @@ instructors = {
 
 instructors.each do |key, hash|
   Instructor.create(  name:              hash[:name],
-                      email:             key.to_s + "@email.com",
   	                  can_be_president:  hash[:can_be_president],
   	                  can_be_secretary:  hash[:can_be_secretary],
   	                  can_be_member:     hash[:can_be_member] )
+  User.create(  email: key.to_s + "@email.com",
+                password: 'bmevikzarovizsgaztato',
+                password_confirmation: 'bmevikzarovizsgaztato',
+                rank: 'instructor',
+                rank_id: Instructor.find_by(name: hash[:name]).id )
 end
 
 students = [
@@ -185,9 +190,13 @@ students = [
 students.each do |name, neptun, supervisor, course_neptun|
   Student.create( name: name,
   	              neptun: neptun,
-                  email: neptun.to_s + "@email.com",
                   instructor_id: Instructor.find_by(name: supervisor).id,
                   course_id: Course.find_by(neptun: course_neptun).id )
+  User.create(  email: neptun.to_s + "@email.com",
+                password: 'bmevikzarovizsgazo',
+                password_confirmation: 'bmevikzarovizsgazo',
+                rank: 'student',
+                rank_id: Student.find_by(neptun: neptun).id )
 end
 
 #Associations: Examiner
@@ -220,4 +229,10 @@ examiners.each do |key, hash|
   Examiner.create(course_id: Course.find_by(neptun: hash[:course]).id, instructor_id: Instructor.find_by(name: hash[:instructor]).id )
 end
 
-#Actual user profiles: Admin, Instructor, Student
+#Creating user profile: Admin
+
+User.create(  email: 'myemail@vikmail.com',
+              password: 'A1122334455',
+              password_confirmation: 'A1122334455',
+              rank: 'admin',
+              rank_id: 0 )
