@@ -1,4 +1,5 @@
 class AdminController < ActionController::Base
+  before_action :authenticate_user!
   before_action :admin_access
 	
   def applicants
@@ -14,8 +15,8 @@ class AdminController < ActionController::Base
 
   def admin_access
   	unless current_user.is_admin?
-  	  flash[:error] = 'You do not have access to this content!'
   	  redirect_to root_url
+      flash[:alert] = 'You do not have access to this content!'
   	end
   end
   
