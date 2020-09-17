@@ -2,8 +2,8 @@ Rails.application.routes.draw do
   devise_for :users
   root to: 'application#home'
 
-  get 'profile',   to: 'application#edit'
-  get 'schedule',  to: 'application#show'
+  get 'profile',   to: 'application#profile'
+  get 'schedule',  to: 'application#schedule'
 
   get 'applicants',           to: 'admin#applicants'
   get 'current_schedule',     to: 'admin#current_schedule'

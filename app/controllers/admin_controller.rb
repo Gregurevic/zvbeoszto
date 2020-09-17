@@ -1,4 +1,4 @@
-class SchedulesController < ActionController::Base
+class AdminController < ActionController::Base
   before_action :admin_access
 	
   def applicants
