@@ -1,0 +1,10 @@
+%p Ezen az oldalon tudod felvenni az új kurzust az adatbázisba. Ez egy admin privilégium.
+%p Már létező kurzust a "Jelentkezések" fül alatt tudsz törölni.
+= form_for @course do |f|
+  - if @course.errors.any?
+    = render 'error_messages', course: course
+  = f.label 'A kurzus neve'
+  = f.text_field :name
+  = f.label 'A kurzus neptun kódja'
+  = f.text_field :neptun
+  = f.submit 'Kurzus létrehozása'
