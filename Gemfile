@@ -3,6 +3,9 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.1'
 
+gem 'jquery-rails'
+gem 'sprockets-rails', '>= 2.3.2'
+gem 'bootstrap', '~> 5.0.0.alpha1'
 gem 'haml'
 gem 'devise'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.3'

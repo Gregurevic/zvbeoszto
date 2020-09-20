@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
-  root to: 'application#home'
+  root to: 'regular#home'
 
   get 'profile',   to: 'application#profile'
   get 'schedule',  to: 'application#schedule'

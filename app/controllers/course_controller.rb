@@ -13,13 +13,16 @@ class CourseController < ApplicationController
   def create
     @course = Course.new(course_params)
     if @course.save
+      redirect_to applicants_path
       flash[:success] = 'A kurzust sikeresen regisztrálta.'
     else
+      redirect_back(fallback_location: root_path)
       flash[:alert] = 'A regisztráció sikertelen!'
     end
   end
 
   def destroy
+    redirect_to applicants_path
   end
 
   private
