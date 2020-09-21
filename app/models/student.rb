@@ -5,6 +5,6 @@ class Student < ApplicationRecord
 
   validates :name, presence: true
   
-  validates_format_of :neptun, with: /\A([A-Z]|[0-9]){6}\z/i
+  validates_format_of :neptun, with: /\A([A-Z]|[0-9]){6}\z/
 
 end
