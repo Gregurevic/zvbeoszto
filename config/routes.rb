@@ -1,14 +1,18 @@
 Rails.application.routes.draw do
-  devise_for :users
-  root to: 'regular#home'
+  devise_for :users, controllers: { registrations: 'registrations' }
+  root to: 'navigation#home'
 
-  get 'profile',   to: 'application#profile'
-  get 'schedule',  to: 'application#schedule'
+  get 'profile',   to: 'navigation#profile'
+  get 'schedule',  to: 'navigation#schedule'
+  get 'confirm',   to: 'navigation#confirm'
 
-  get 'applicants',           to: 'admin#applicants'
-  get 'current_schedule',     to: 'admin#current_schedule'
+  get 'applicants',        to: 'admin#applicants'
+  get 'current_schedule',  to: 'admin#current_schedule'
 
   get '/courses' => 'course#index'
   get 'course_registration',  to: 'course#new'
   post '/courses' => 'course#create'
+
+  get 'student_registration', to: 'student#new'
+  post 'student_registration', to: 'student#create'
 end

@@ -4,7 +4,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable #, :confirmable
 
   validates :rank, acceptance: { accept: ['admin', 'instructor', 'student'] }
-  validates :rank_id, numericality: { only_integer: true }
+  validates :rank_id, numericality: { only_integer: true }, allow_nil: true
 
   def is_admin?
   	self.rank == 'admin'

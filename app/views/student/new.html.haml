@@ -1,0 +1,13 @@
+%h2 Hallgatói regisztráció
+= form_for( @student, as: :student, url: student_registration_path) do |f|
+  .field
+    = f.label 'Név'
+    = f.text_field :email, autofocus: true, placeholder: 'Példa Béla', required: true
+    = f.label 'Neptun'
+    = f.text_field :password, placeholder: 'B4TM4N', required: true, pattern: "^([A-Z]|[0-9]){6}$/i"
+    = f.label 'Konzulens'
+    = f.select :instructor_id, options_for_select( @instructors.map{  |i| [i.name, i.email] } )
+    = f.label 'Vizsgatárgy'
+    = f.select :course_id, options_for_select ( @courses.map{ |c| [c.name, c.neptun] } )
+  .actions
+    = f.submit 'Tovább'
