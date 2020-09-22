@@ -10,12 +10,6 @@ class Instructor < ApplicationRecord
   validates :can_be_secretary,  inclusion: { in: [true, false] }
   validates :can_be_member,     inclusion: { in: [true, false] }
 
-  def instructor_save
-    @instructor.valid?
-    Instructor.create( name: :name,
-                       can_be_president: :can_be_president,
-                       can_be_secretary: :can_be_secretary,
-                       can_be_member: :can_be_member )
-  end
+  attr_accessor :course_list
 
 end
