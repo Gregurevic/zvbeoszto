@@ -4,6 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.7.1'
 
 gem 'rails', '~> 6.0.3', '>= 6.0.3.3'
+gem 'sprockets-rails', '>= 2.3.2'
 gem 'haml'
 gem 'devise'
 gem 'will_paginate',           '3.3.0'
