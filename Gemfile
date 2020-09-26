@@ -3,14 +3,12 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.1'
 
-gem 'pagy'
-gem 'jquery-rails'
-gem 'sprockets-rails', '>= 2.3.2'
-gem 'bootstrap-sass', '~> 3.4.1'
-gem 'sassc-rails', '>= 2.1.0'
+gem 'rails', '~> 6.0.3', '>= 6.0.3.3'
 gem 'haml'
 gem 'devise'
-gem 'rails', '~> 6.0.3', '>= 6.0.3.3'
+gem 'will_paginate',           '3.3.0'
+gem 'bootstrap-will_paginate', '1.0.0'
+gem 'bootstrap-sass', '~> 3.4.1'
 gem 'puma', '~> 4.1'
 gem 'sass-rails', '>= 6'
 gem 'webpacker', '~> 4.0'
