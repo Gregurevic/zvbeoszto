@@ -3,9 +3,11 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.1'
 
+gem 'pagy'
 gem 'jquery-rails'
 gem 'sprockets-rails', '>= 2.3.2'
-gem 'bootstrap', '~> 5.0.0.alpha1'
+gem 'bootstrap-sass', '~> 3.4.1'
+gem 'sassc-rails', '>= 2.1.0'
 gem 'haml'
 gem 'devise'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.3'

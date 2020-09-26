@@ -6,8 +6,8 @@ class StudentController < ApplicationController
     users = User.where(rank: 'instructor').pluck(:rank_id, :email)
     instructors = Instructor.pluck(:id, :name)
     @instructors = []
-    for i in 0..(users.length - 1)
-      @instructors << [ instructors.detect{|d| d[0] == users[i][0]}[1].to_s, users[i][1].to_s]
+    for i in 0..(instructors.length - 1)
+      @instructors << [ instructors[i][1].to_s, users.detect{|u| u[0] == instructors[i][0]}[1].to_s ]
     end
     @courses = Course.pluck(:name, :neptun)
     @temp = params[:user_id]

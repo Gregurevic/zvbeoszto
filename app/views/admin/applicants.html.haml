@@ -1,2 +1,5 @@
-applicants
+%h1 applicants
+= raw pagy_nav(@pagy)
+=# pagy_bootstrap_nav(@pagy)
+=# raw render partial: 'pagy/nav_boostrap', locals: {pagy: @pagy}
 = link_to 'Új kurzus létrehozása', course_registration_path, remote: true
