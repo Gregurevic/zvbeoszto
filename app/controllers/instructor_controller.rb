@@ -27,6 +27,8 @@ class InstructorController < ApplicationController
   end
 
   def destroy
+    Instructor.find(params[:id]).safe_delete
+    redirect_to applicants_path
   end
 
   def profile

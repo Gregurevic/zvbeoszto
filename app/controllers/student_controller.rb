@@ -29,6 +29,8 @@ class StudentController < ApplicationController
   end
 
   def destroy
+    Student.find(params[:id]).safe_delete
+    redirect_to applicants_path
   end
 
   def profile

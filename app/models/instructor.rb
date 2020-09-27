@@ -2,7 +2,7 @@ class Instructor < ApplicationRecord
 
   has_many :students
   
-  has_many :examiners, dependent: :delete_all
+  has_many :examiners
   has_many :courses, through: :examiners
   
   validates :name, presence: true
@@ -11,5 +11,12 @@ class Instructor < ApplicationRecord
   validates :can_be_member,     inclusion: { in: [true, false] }
 
   attr_accessor :course_list
-
+  
+  def safe_delete
+    ActiveRecord::Base.transaction do
+      ActiveRecord::Base.connection.execute("DELETE FROM examiners WHERE instructor_id = #{self.id}")
+      ActiveRecord::Base.connection.execute("UPDATE students SET instructor_id = NULL WHERE instructor_id = #{self.id}")
+      ActiveRecord::Base.connection.execute("DELETE FROM instructors WHERE id = #{self.id}")
+    end
+  end
 end

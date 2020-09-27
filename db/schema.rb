@@ -42,8 +42,8 @@ ActiveRecord::Schema.define(version: 2020_09_16_170009) do
     t.string "neptun"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "course_id", null: false
-    t.integer "instructor_id", null: false
+    t.integer "course_id"
+    t.integer "instructor_id"
     t.index ["course_id"], name: "index_students_on_course_id"
     t.index ["instructor_id"], name: "index_students_on_instructor_id"
   end
