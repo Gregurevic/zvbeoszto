@@ -1,14 +1,27 @@
-%h1 header
-.header
-  = link_to 'Home', root_path
-  - if user_signed_in?
-    - if current_user.is_admin?
-      = link_to 'Jelentkezések', applicants_path
-      = link_to 'Beosztás', current_schedule_path
-    - else
-      = link_to 'Profilom', profile_path
-      = link_to 'Beosztásom', schedule_path
-    = link_to 'Kijelentkezés', destroy_user_session_path, method: :delete
-  - else
-    = link_to 'Regisztráció', new_user_registration_path
-    = link_to 'Bejelentkezés', new_user_session_path
+%nav.navbar.navbar-expand-lg.navbar-light.bg-light
+  %a.navbar-brand{:href => root_path}
+    = image_tag("/assets/logo3.png", size: "100x100")
+  %button.navbar-toggler{"aria-controls" => "navbarNav", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarNav", "data-toggle" => "collapse", :type => "button"}
+    %span.navbar-toggler-icon
+  #navbarNav.collapse.navbar-collapse
+    %ul.navbar-nav
+      %li.nav-item.active
+        %a.nav-link{:href => root_path} Home
+      - if user_signed_in?
+        - if current_user.is_admin?
+          %li.nav-item.active
+            %a.nav-link{:href => applicants_path} Jelentkezések
+          %li.nav-item.active
+            %a.nav-link{:href => current_schedule_path} Beosztás
+        - else
+          %li.nav-item.active
+            %a.nav-link{:href => profile_path} Profilom
+          %li.nav-item.active
+            %a.nav-link{:href => schedule_path} Beosztásom
+        %li.nav-item.active
+          %a.nav-link{:href => destroy_user_session_path, :method => :delete} Kijelentkezés
+      - else
+        %li.nav-item.active
+          %a.nav-link{:href => new_user_registration_path} Regisztráció
+        %li.nav-item.active
+          %a.nav-link{:href => new_user_session_path} Bejelentkezés
