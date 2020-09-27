@@ -1,0 +1,21 @@
+%p Ez az oldal mutatja be a vizsgáztatókat tárgyanként csoportosítva
+.container
+  %h2 Oktatók
+  = will_paginate @examiners, renderer: WillPaginate::ActionView::BootstrapLinkRenderer, previous_label: 'Előző', next_label: 'Következő', inner_window: 1, outer_window: 0, param_name: 'examiner_page'
+  %table.table.table-striped.table-dark.col-xs-8
+    %thead
+      %tr
+        %th #
+        %th Tárgy
+        %th Vizsgáztató
+    %tbody
+      - @examiners.each do |e|
+        %tr
+          %th
+            = e[2]
+          %td
+            = e[0]
+          %td
+            = e[1]
+  .float-right
+    = link_to 'Vissza', applicants_path

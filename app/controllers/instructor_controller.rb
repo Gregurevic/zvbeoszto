@@ -14,12 +14,10 @@ class InstructorController < ApplicationController
     @instructor = Instructor.new(instructor_params.permit(:name, :can_be_president, :can_be_secretary, :can_be_member))
     if @instructor.save
       instructor_id = Instructor.where(name: @instructor[:name]).pluck(:id)[0]
-      byebug
       User.find(params[:user_id]).update(rank_id: instructor_id)
       courses.each do |c|
         Examiner.create(course_id: Course.where(neptun: c).pluck(:id)[0], instructor_id: instructor_id)
       end
-      byebug
       redirect_to root_path
       flash[:success] = 'Sikeres oktatói regisztráció!'
     else

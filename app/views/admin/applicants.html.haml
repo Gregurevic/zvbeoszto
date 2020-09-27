@@ -1,5 +1,90 @@
 %h1 applicants
-=# raw pagy_nav(@pagy)
-=# pagy_bootstrap_nav(@pagy)
-=# raw render partial: 'pagy/nav_boostrap', locals: {pagy: @pagy}
-= link_to 'Új kurzus létrehozása', course_registration_path, remote: true
+%p Ugye hallgatót, oktatót felvinni nem admin privilégium, ezért ez a rendes workflowban van benne, ne itt keresd!
+%p Új vizsgázatói státuszt létrehozni sem admin privilégium, ezt az oktató a profilja alatt teheti meg.
+%p Új kurzust felvinni ittLINK vagy a megfelelő táblázat alatt lehet.
+.container
+  %h2 Kurzusok
+  = will_paginate @courses, renderer: WillPaginate::ActionView::BootstrapLinkRenderer, previous_label: 'Előző', next_label: 'Következő', inner_window: 1, outer_window: 0, param_name: 'course_page'
+  %table.table.table-striped.table-dark.col-xs-8
+    %thead
+      %tr
+        %th #
+        %th Név
+        %th Neptun
+        %th Módosítás
+        %th Törlés
+    %tbody
+      - @courses.each do |c|
+        %tr
+          %th
+            = c[3]
+          %td
+            = c[1]
+          %td
+            = c[2]
+          %td
+            = link_to 'Mod', edit_course_path(id: c[0])
+          %td
+            = link_to 'X', destroy_course_path(id: c[0])
+  .float-right
+    = link_to 'Új kurzus létrehozása', course_registration_path
+  %h2 Oktatók
+  = will_paginate @instructors, renderer: WillPaginate::ActionView::BootstrapLinkRenderer, previous_label: 'Előző', next_label: 'Következő', inner_window: 1, outer_window: 0, param_name: 'instructor_page'
+  %table.table.table-striped.table-dark.col-xs-8
+    %thead
+      %tr
+        %th #
+        %th Név
+        %th Elnök
+        %th Titkár
+        %th Tag
+        %th Módosítás
+        %th Törlés
+    %tbody
+      - @instructors.each do |i|
+        %tr
+          %th
+            = i[5]
+          %td
+            = i[1]
+          %td
+            = i[2]
+          %td
+            = i[3]
+          %td
+            = i[4]
+          %td
+            = link_to 'Mod', edit_instructor_path(id: i[0])
+          %td
+            = link_to 'X', destroy_instructor_path(id: i[0])
+  .float-right
+    = link_to 'Vizsgáztatók listája', examiners_list_path
+  %h2 Hallgatók
+  = will_paginate @students, renderer: WillPaginate::ActionView::BootstrapLinkRenderer, previous_label: 'Előző', next_label: 'Következő', inner_window: 1, outer_window: 0, param_name: 'student_page'
+  %table.table.table-striped.table-dark.col-xs-8
+    %thead
+      %tr
+        %th #
+        %th Név
+        %th Neptun
+        %th Kurzus
+        %th Konzulens
+        %th Módosítás
+        %th Törlés
+    %tbody
+      - @students.each do |s|
+        %tr
+          %th
+            = s[5]
+          %td
+            = s[1]
+          %td
+            = s[2]
+          %td
+            = s[3]
+          %td
+            = s[4]
+          %td
+            = link_to 'Mod', edit_student_path(id: s[0])
+          %td
+            = link_to 'X', destroy_student_path(id: s[0])

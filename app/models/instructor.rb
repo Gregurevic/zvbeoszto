@@ -2,7 +2,7 @@ class Instructor < ApplicationRecord
 
   has_many :students
   
-  has_many :examiners
+  has_many :examiners, dependent: :delete_all
   has_many :courses, through: :examiners
   
   validates :name, presence: true

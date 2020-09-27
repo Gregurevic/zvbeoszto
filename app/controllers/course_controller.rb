@@ -21,7 +21,11 @@ class CourseController < ApplicationController
     end
   end
 
+  def edit
+  end
+
   def destroy
+    Course.find(params[:id]).destroy
     redirect_to applicants_path
   end
 
