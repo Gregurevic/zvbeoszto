@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   get   '/courses'              =>   'course#index'
   get   'course_registration',  to:  'course#new'
   post  '/courses'              =>   'course#create'
+  patch '/courses'              =>   'course#update'
   get   'destroy_course'        =>   'course#destroy'
   get   'edit_course',          to:  'course#edit'
 

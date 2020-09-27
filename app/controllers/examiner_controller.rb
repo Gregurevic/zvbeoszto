@@ -3,10 +3,12 @@ class ExaminerController < ApplicationController
 
   def index
     #examiners
+    users = User.where(rank: 'instructor').pluck(:rank_id, :email)
     @examiners = Examiner.pluck(:id, :course_id, :instructor_id)
     @examiners.each do |e|
-      e[1] = Course.find(e[1]).name
-      e[2] = Instructor.find(e[2]).name
+      e1 = Course.find(e[1])
+      e[1] = e1.name.to_s + " (" + e1.neptun.to_s + ")"
+      e[2] = Instructor.find(e[2]).name.to_s + " (" + users.detect{|u| u[0] == e[2]}[1].to_s + ")"
     end
     @examiners = @examiners.sort_by{|e| e[1]}
     for i in 0..(@examiners.length-1)
@@ -14,7 +16,6 @@ class ExaminerController < ApplicationController
     end
     @examiners = @examiners.paginate(page: params[:examiner_page], per_page: 12)
     #examiner
-    users = User.where(rank: 'instructor').pluck(:rank_id, :email)
     instructors = Instructor.pluck(:id, :name)
     @instructors = []
     for i in 0..(instructors.length - 1)

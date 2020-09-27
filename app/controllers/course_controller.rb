@@ -22,6 +22,19 @@ class CourseController < ApplicationController
   end
 
   def edit
+    @course = Course.find(params[:id])
+  end
+
+  def update
+    course = Course.find(params[:id])
+    course.update(course_params)
+    if course.save
+      redirect_to applicants_path
+      flash[:alert] = 'A kurzus adatmódosítása sikeres.'
+    else
+      redirect_back(fallback_location: root_path)
+      flash[:alert] = 'A kurzus adatmódosítása sikertelen!'
+    end
   end
 
   def destroy

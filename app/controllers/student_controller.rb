@@ -28,15 +28,28 @@ class StudentController < ApplicationController
     end
   end
 
-  def destroy
-    Student.find(params[:id]).safe_delete
-    redirect_to applicants_path
+  def profile
+    @student = Student.find(params[:id])
   end
 
-  def profile
+  def update
+    student = Student.find(params[:id])
+    student.update(student_params)
+    if student.save
+      redirect_to applicants_path
+      flash[:alert] = 'A kurzus adatmódosítása sikeres.'
+    else
+      redirect_back(fallback_location: root_path)
+      flash[:alert] = 'A kurzus adatmódosítása sikertelen!'
+    end
   end
 
   def schedule
+  end
+
+  def destroy
+    Student.find(params[:id]).safe_delete
+    redirect_to applicants_path
   end
 
   private

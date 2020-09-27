@@ -1,0 +1,16 @@
+%h1 Kurzus adatainak megváltoztatása
+%p Amelyik nincs megadva, az marad az eredeti
+jelenlegi név
+= @course.name
+jelenlegi neptun
+= @course.neptun
+.form-row.align-items-center
+  = form_for(@course, as: :course, url: courses_path(id: params[:id])) do |f|
+    .form_inputs
+      = f.label 'Kurzus neve'
+      = f.text_field :name, placeholder: 'Név módosítása'
+      = f.label 'Kurzus NEPTUN kódja'
+      = f.text_field :neptun, placeholder: 'Neptun kód módosítása', pattern: "^BMEVI([A-Z]){3}([A-Z]|[0-9]){3}$"
+    .form-actions
+      = f.submit 'Kurzus adatainak módosítása'
+= link_to 'Vissza', applicants_path
