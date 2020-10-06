@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   post  'student_registration',  to: 'student#create'
   get   'destroy_student',       to: 'student#destroy'
   get   'edit_student',          to: 'student#profile'
+  patch 'student_registration',  to: 'student#update'
 
   get   'instructor_registration',  to: 'instructor#new'
   post  'instructor_registration',  to: 'instructor#create'
