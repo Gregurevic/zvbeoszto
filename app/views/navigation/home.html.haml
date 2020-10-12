@@ -1,1 +1,66 @@
-%h1 Szia Sziszi!
+#home
+  %main{:role => "main"}
+    #myCarousel.carousel.slide{"data-ride" => "carousel"}
+      %ol.carousel-indicators
+        %li.active{"data-slide-to" => "0", "data-target" => "#myCarousel"}
+        %li{"data-slide-to" => "1", "data-target" => "#myCarousel"}
+        %li{"data-slide-to" => "2", "data-target" => "#myCarousel"}
+      .carousel-inner
+        .carousel-item.active
+          %img.first-slide.carousel-fit{src: "/assets/cover1.jpg"}
+          .containers
+            .carousel-caption.text-left
+              %h1.text-dark.display-4 Üdvözöl a záróvizsga beosztó portál!
+              %h2.text-dark A záróvizsgára jelentkezés első lépése a regisztráció.
+              %p
+                %a.btn.btn-lg.btn-primary{:href => new_user_registration_path, :role => "button"} Regisztráció
+        .carousel-item
+          %img.second-slide.carousel-fit{src: "/assets/cover3.jpg"}
+          .container
+            .carousel-caption
+              %h1.text-light.display-4 Üdvözlünk ismét!
+              %h2.text-light Ha már regisztráltál a portálra, csak be kell jelentkezz.
+              %p
+                %a.btn.btn-lg.btn-primary{:href => new_user_session_path, :role => "button"} Bejelentkezés
+        .carousel-item
+          %img.third-slide.carousel-fit{src: "/assets/cover2.jpg"}
+          .container
+            .carousel-caption.text-right
+              %h1.text-dark.display-4 Sok sikert a záróvizsgához!
+              %h2.third-distance.text-dark Eredményes felkészülést kívánunk.
+      %a.carousel-control-prev{"data-slide" => "prev", :href => "#myCarousel", :role => "button"}
+        %span.carousel-control-prev-icon{"aria-hidden" => "true"}
+        %span.sr-only Előző
+      %a.carousel-control-next{"data-slide" => "next", :href => "#myCarousel", :role => "button"}
+        %span.carousel-control-next-icon{"aria-hidden" => "true"}
+        %span.sr-only Következő
+
+
+    .container.marketing
+      %hr.featurette-divider
+      .row.featurette
+        .col-md-7
+          %h2.featurette-heading
+            Első látogatóknak:
+            %span.text-muted Miért vagyok itt?
+          %p.lead Ezen a weboldalon egy olyan fullstack webalkalmazással találkozhatunk, ami a Budapesti Műszaki és Gazdaságtudományi Egytem Automatizálási és Alkalmazott Informatikai Tanszékén a záróvizsgafolyamat bizonyos részeit hivatott automatizálni.
+        .col-md-5
+          %img.featurette-image.img-fluid.mx-auto{src: "/assets/home1.jpg"}
+      %hr.featurette-divider
+      .row.featurette
+        .col-md-7.order-md-2
+          %h2.featurette-heading
+            Felhasználóknak:
+            %span.text-muted Mit tudok itt csinálni?
+          %p.lead A portál lehetőséget ad hallgatóként és oktatóként jelentkezni, ez után pedig menedzselni a felvitt adatainkat. Ezen kívül egy admin felületen pedig lehetőséget nyújt a záróvizsga beosztás elkészítésére.
+        .col-md-5.order-md-1
+          %img.featurette-image.img-fluid.mx-auto{src: "/assets/home3.jpg"}
+      %hr.featurette-divider
+      .row.featurette
+        .col-md-7
+          %h2.featurette-heading
+            Bárkinek:
+            %span.text-muted Köszöntelek a honlapon!
+          %p.lead Pál Gergő vagyok, és jelenleg a szakdolgozatomat látod magod előtt. Ha bármilyen észrevételed lenne a portállal kapcsolatban, keress bátran a lenti címen.
+        .col-md-5
+          %img.featurette-image.img-fluid.mx-auto{src: "/assets/home2.jpg"}

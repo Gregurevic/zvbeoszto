@@ -1,17 +1,15 @@
-%h2 Bejelentkezés
-= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-  .field
-    = f.label 'Email'
-    %br/
-    = f.email_field :email, autofocus: true, autocomplete: "email"
-  .field
-    = f.label 'Jelszó'
-    %br/
-    = f.password_field :password, autocomplete: "current-password"
-  - if devise_mapping.rememberable?
-    .field
-      = f.check_box :remember_me
-      = f.label 'Bejelentkezve maradok'
-  .actions
-    = f.submit "Bejelentkezés"
-= link_to "Elfelejtetted a jelszavad?", new_password_path(resource_name)
+#sign-in.text-center
+  = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+    .form-signin
+      %img.mb-4{:alt => "", :height => "72", :src => "/assets/logo.png", :width => "144"}
+      %h1.h3.mb-3.font-weight-normal Jelentkezz be!
+      %label.sr-only{:for => "inputEmail"} Email
+      %input#inputEmail.form-control{:autofocus => "", :placeholder => "Email address", :required => "", :type => "email"}
+      %label.sr-only{:for => "inputPassword"} Jelszó
+      %input#inputPassword.form-control{:placeholder => "Password", :required => "", :type => "password"}
+      .checkbox.mb-3
+        %label
+          %input{:type => "checkbox", :value => "remember_me"}
+          Bejelentkezve maradok
+      %button.btn.btn-lg.btn-primary.btn-block{:type => "submit"} Bejelentkezés
+      = link_to "Elfelejtetted a jelszavad?", new_password_path(resource_name)
