@@ -4,7 +4,7 @@ class InstructorController < ApplicationController
   before_action :construct_courses, only: [:create]
   
   def new
-    @courses = Course.pluck(:name, :neptun)
+    @courses = courses_to_list
     @temp = params[:user_id]
     @instructor = Instructor.new
   end

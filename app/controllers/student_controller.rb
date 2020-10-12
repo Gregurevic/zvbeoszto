@@ -1,23 +1,18 @@
 class StudentController < ApplicationController
   before_action :authenticate_user!, only: [:profile, :schedule]
-  before_action :admin_access, only: [:destroy]
+  before_action :admin_access, only: [:destroy, :destroy_all]
   
   def new
-    users = User.where(rank: 'instructor').pluck(:rank_id, :email)
-    instructors = Instructor.pluck(:id, :name)
-    @instructors = []
-    for i in 0..(instructors.length - 1)
-      @instructors << [ instructors[i][1].to_s, users.detect{|u| u[0] == instructors[i][0]}[1].to_s ]
-    end
-    @courses = Course.pluck(:name, :neptun)
+    @instructors = instructors_to_list
+    @courses = courses_to_list
     @temp = params[:user_id]
     @student = Student.new
   end
 
   def create
     @student = Student.new(student_params.merge!(
-               instructor_id: Instructor.where(name: student_params[:instructor_id][/(.*)\s/,1]).pluck(:id)[0],
-               course_id: Course.where(neptun: student_params[:course_id].split.last[1..11]).pluck(:id)[0] ))
+               instructor_id: instructor_id_from_list(student_params[:instructor_id]),
+               course_id: course_id_from_list(student_params[:course_id]) ))
     if @student.save
       User.find(params[:user_id]).update(rank_id: Student.where(neptun: @student[:neptun]).pluck(:id)[0])
       redirect_to root_path
@@ -29,29 +24,22 @@ class StudentController < ApplicationController
   end
 
   def profile
-    #student
     @student = Student.find(params[:id])
-    #user
-    @user = User.where(rank: 'student', rank_id: @student.id)[0]
-    #courses and examiners
-    users = User.where(rank: 'instructor').pluck(:rank_id, :email)
-    instructors = Instructor.pluck(:id, :name)
-    @instructors = []
-    for i in 0..(instructors.length - 1)
-      @instructors << [ instructors[i][1].to_s, users.detect{|u| u[0] == instructors[i][0]}[1].to_s ]
-    end
-    @courses = Course.pluck(:name, :neptun)
+    @instructors = instructors_to_list
+    @courses = courses_to_list
   end
 
   def update
-    student = Student.find(params[:id])
-    student.update(student_params)
-    if student.save
+    @student = Student.find_by(neptun: student_params[:neptun])
+    if @student.update( name: student_params[:name],
+                        neptun: student_params[:neptun],
+                        instructor_id: instructor_id_from_list(student_params[:instructor_id]),
+                        course_id: course_id_from_list(student_params[:course_id]))
       redirect_to applicants_path
-      flash[:alert] = 'A kurzus adatmódosítása sikeres.'
+      flash[:alert] = 'A hallgató adatmódosítása sikeres.'
     else
       redirect_back(fallback_location: root_path)
-      flash[:alert] = 'A kurzus adatmódosítása sikertelen!'
+      flash[:alert] = 'A hallgató adatmódosítása sikertelen!'
     end
   end
 
@@ -59,7 +47,12 @@ class StudentController < ApplicationController
   end
 
   def destroy
-    Student.find(params[:id]).safe_delete
+    Student.find(params[:id]).delete_with_user
+    redirect_to applicants_path
+  end
+
+  def destroy_all
+    Student.new().delete_all_with_user
     redirect_to applicants_path
   end
 

@@ -15,6 +15,11 @@ class RegistrationsController < Devise::RegistrationsController
     end
   end
 
+  def edit
+    byebug
+    @user = current_user.is_admin? ? User.find(params[:id]) : current_user
+  end
+
   protected
 
   def sign_up_params

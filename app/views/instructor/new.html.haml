@@ -11,6 +11,6 @@
     = f.check_box :can_be_member
     = f.label 'Az alábbi tárgyakat oktatom'
     %p Windows-on a Ctrl, Mac-on a Command lenyomásávál tud többet kijelölni egyszerre.
-    = f.select :course_list, options_for_select(@courses.map{ |c| c[0].to_s+' ('+c[1].to_s+') ' }), {}, multiple:true, required: true
+    = f.select :course_list, options_for_select(@courses), {}, multiple:true, required: true
   .actions
     = f.submit 'Tovább'

@@ -1,27 +1,17 @@
-%h1 Portálhoz köthető adataim
-= form_for(@user, as: :user, url: registration_path(@user), html: { method: :put }) do |f|
-  .field
-    = f.label 'Email'
-    = f.email_field :email, autofocus: true, autocomplete: "email"
-    = f.label 'Új jelszó (hagyd üresen, ha nem akarod megváltoztatni)'
-    = f.password_field :password, autocomplete: "new-password"
-    = f.label 'Új jelszó megerősítése'
-    = f.password_field :password_confirmation, autocomplete: "new-password"
-    = f.label 'Jelenlegi jelszó'
-    = f.password_field :current_password, autocomplete: "current-password"
-  .actions
-    = f.submit "Frissítés"
-
-%h1 Záróvizsgához köthető adataim
-= form_for( @student, as: :student, url: student_registration_path(id: params[:id])) do |f|
+%h1 Záróvizsga adatok
+%p itt van lehetőség a hallgató záróvizsgához adatainak megváltoztatására
+%p a felhasználói adatok megváltoztatására ittLINK vagy lentebb van lehetőség
+= form_for( @student, as: :student, url: student_registration_path ) do |f|
   .field
     = f.label 'Név'
     = f.text_field :name, autofocus: true, placeholder: 'Nánási Anna', required: true
     = f.label 'Neptun (Nagybetűvel)'
     = f.text_field :neptun, placeholder: 'B4TM4N', required: true, pattern: "^([A-Z]|[0-9]){6}$"
     = f.label 'Konzulens'
-    = f.select :instructor_id, options_for_select(@instructors.map{ |i| i[0].to_s+' ('+i[1].to_s+')' }), required: true
+    = f.select :instructor_id, options_for_select(@instructors), required: true
     = f.label 'Vizsgatárgy'
-    = f.select :course_id, options_for_select(@courses.map{ |c| c[0].to_s+' ('+c[1].to_s+')' }), required: true
+    = f.select :course_id, options_for_select(@courses), required: true
   .actions
     = f.submit 'Módosítás'
+.pill-right
+  = link_to 'Felhasználói adatok módosítása', edit_user_registration_path(id: @student.id)
