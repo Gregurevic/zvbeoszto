@@ -11,3 +11,4 @@
     = f.select :course_id, options_for_select(@courses.map{ |c| c[0].to_s+' ('+c[1].to_s+')' }), required: true
   .actions
     = f.submit 'Tovább'
+    

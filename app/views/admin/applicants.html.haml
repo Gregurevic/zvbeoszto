@@ -4,99 +4,135 @@
 %p Új kurzust felvinni ittLINK vagy a megfelelő táblázat alatt lehet.
 %p Kurzus vagy oktató törlése nem vonja maga után hallgató törlését. Mivel ezek adminjoghoz kötött tevékenységek, ezért ezen a felületen lehet látható, ha inkonzisztens adat van az adatbázisban. Ez egy nagy piros NULL jelzi.
 %p A piros NULLok javítása végett is létezik a Módosítás oszlop minden táblában.
-.container
-  %h2 Kurzusok
-  = will_paginate @courses, renderer: WillPaginate::ActionView::BootstrapLinkRenderer, previous_label: 'Előző', next_label: 'Következő', inner_window: 1, outer_window: 0, param_name: 'course_page'
-  %table.table.table-striped.table-dark.col-xs-8
-    %thead
-      %tr
-        %th #
-        %th Név
-        %th Neptun
-        %th Módosítás
-        %th Törlés
-    %tbody
-      - @courses.each do |c|
-        %tr
-          %th
-            = c[3]
-          %td
-            = c[1]
-          %td
-            = c[2]
-          %td
-            = link_to 'Mod', edit_course_path(id: c[0])
-          %td
-            = link_to 'X', destroy_course_path(id: c[0])
-  .float-right
-    = link_to 'Új kurzus létrehozása', course_registration_path
-  %h2 Oktatók
-  = will_paginate @instructors, renderer: WillPaginate::ActionView::BootstrapLinkRenderer, previous_label: 'Előző', next_label: 'Következő', inner_window: 1, outer_window: 0, param_name: 'instructor_page'
-  %table.table.table-striped.table-dark.col-xs-8
-    %thead
-      %tr
-        %th #
-        %th Név
-        %th Elnök
-        %th Titkár
-        %th Tag
-        %th Módosítás
-        %th Törlés
-    %tbody
-      - @instructors.each do |i|
-        %tr
-          %th
-            = i[5]
-          %td
-            = i[1]
-          %td
-            = i[2]
-          %td
-            = i[3]
-          %td
-            = i[4]
-          %td
-            = link_to 'Mod', edit_instructor_path(id: i[0])
-          %td
-            = link_to 'X', destroy_instructor_path(id: i[0])
-  .float-right
-    = link_to 'Vizsgáztatók listája', examiners_list_path
-  %h2 Hallgatók
-  = will_paginate @students, renderer: WillPaginate::ActionView::BootstrapLinkRenderer, previous_label: 'Előző', next_label: 'Következő', inner_window: 1, outer_window: 0, param_name: 'student_page'
-  %table.table.table-striped.table-dark.col-xs-8
-    %thead
-      %tr
-        %th #
-        %th Név
-        %th Neptun
-        %th Kurzus
-        %th Konzulens
-        %th Módosítás
-        %th Törlés
-    %tbody
-      - @students.each do |s|
-        %tr
-          %th
-            = s[5]
-          %td
-            = s[1]
-          %td
-            = s[2]
-          - if s[3].nil?
-            %td.text-danger
-              NULL
-          - else
-            %td
-              = s[3]
-          - if s[4].nil?
-            %td.text-danger
-              NULL
-          - else
-            %td
-              = s[4]
-          %td
-            = link_to 'Mod', edit_student_path(id: s[0])
-          %td
-            = link_to 'X', destroy_student_path(id: s[0])
-  .float-right
-    = link_to 'Minden hallgató törlése', destroy_all_students_path
+.container-fluid
+  .row
+    .col-1
+    .col-12.col-md-2
+      #list-tab.list-group.list-group-flush{:role => "tablist"}
+        %a#list-course-list.list-group-item.list-group-item-action{"aria-controls" => "course", "data-toggle" => "list", :href => "#list-course", :role => "tab", :class => ("active" if (params[:lg] == 'c' || !params[:lg].present?)) } Kurzusok
+        %a#list-instructor-list.list-group-item.list-group-item-action{"aria-controls" => "instructor", "data-toggle" => "list", :href => "#list-instructor", :role => "tab", :class => ("active" if params[:lg] == 'i')} Oktatók
+        %a#list-examiner-list.list-group-item.list-group-item-action{"aria-controls" => "examiner", "data-toggle" => "list", :href => "#list-examiner", :role => "tab", :class => ("active" if params[:lg] == 'e')} Vizsgáztatók
+        %a#list-student-list.list-group-item.list-group-item-action{"aria-controls" => "student", "data-toggle" => "list", :href => "#list-student", :role => "tab", :class => ("active" if params[:lg] == 's')} Hallgatók
+    .col-12.col-md-8
+      #nav-tabContent.tab-content
+        #list-course.tab-pane.fade{"aria-labelledby" => "list-course-list", :role => "tabpanel", :class => ("show active" if (params[:lg] == 'c' || !params[:lg].present?))}
+          %h2 Kurzusok
+          = will_paginate @courses, renderer: WillPaginate::ActionView::BootstrapLinkRenderer, previous_label: 'Előző', next_label: 'Következő', inner_window: 1, outer_window: 0, param_name: 'course_page', params: { lg: 'c' }
+          %table.table.table-striped.table-dark.col-xs-8
+            %thead
+              %tr
+                %th #
+                %th Név
+                %th Neptun
+                %th Módosítás
+                %th Törlés
+            %tbody
+              - @courses.each do |c|
+                %tr
+                  %th
+                    = c[3]
+                  %td
+                    = c[1]
+                  %td
+                    = c[2]
+                  %td
+                    = link_to 'Mod', edit_course_path(id: c[0])
+                  %td
+                    = link_to 'X', destroy_course_path(id: c[0])
+          .float-right
+            = link_to 'Új kurzus létrehozása', course_registration_path
+        #list-instructor.tab-pane.fade{"aria-labelledby" => "list-instructor-list", :role => "tabpanel", :class => ("show active" if params[:lg] == 'i')}
+          %h2 Oktatók
+          = will_paginate @instructors, renderer: WillPaginate::ActionView::BootstrapLinkRenderer, previous_label: 'Előző', next_label: 'Következő', inner_window: 1, outer_window: 0, param_name: 'instructor_page', params: { lg: 'i' }
+          %table.table.table-striped.table-dark.col-xs-8
+            %thead
+              %tr
+                %th #
+                %th Név
+                %th Elnök
+                %th Titkár
+                %th Tag
+                %th Módosítás
+                %th Törlés
+            %tbody
+              - @instructors.each do |i|
+                %tr
+                  %th
+                    = i[5]
+                  %td
+                    = i[1]
+                  %td
+                    = i[2]
+                  %td
+                    = i[3]
+                  %td
+                    = i[4]
+                  %td
+                    = link_to 'Mod', edit_instructor_path(id: i[0])
+                  %td
+                    = link_to 'X', destroy_instructor_path(id: i[0])
+          .float-right
+            = link_to 'Vizsgáztatók listája', examiners_list_path
+        #list-examiner.tab-pane.fade{"aria-labelledby" => "list-examiner-list", :role => "tabpanel", :class => ("show active" if params[:lg] == 'e')}
+          %h2 Vizsgáztatók
+          = will_paginate @examiners, renderer: WillPaginate::ActionView::BootstrapLinkRenderer, previous_label: 'Előző', next_label: 'Következő', inner_window: 1, outer_window: 0, param_name: 'examiner_page', params: { lg: 'e' }
+          %table.table.table-striped.table-dark.col-xs-8
+            %thead
+              %tr
+                %th #
+                %th Tárgy
+                %th Vizsgáztató
+                %th Törlés
+            %tbody
+              - @examiners.each do |e|
+                %tr
+                  %th
+                    = e[3]
+                  %td
+                    = e[1]
+                  %td
+                    = e[2]
+                  %td
+                    = link_to 'X', destroy_examiner_path(id: e[0])
+          .float-right
+            = link_to 'Új vizsgáztató', examiners_list_path
+        #list-student.tab-pane.fade{"aria-labelledby" => "list-student-list", :role => "tabpanel", :class => ("show active" if params[:lg] == 's')}
+          %h2 Hallgatók
+          = will_paginate @students, renderer: WillPaginate::ActionView::BootstrapLinkRenderer, previous_label: 'Előző', next_label: 'Következő', inner_window: 1, outer_window: 0, param_name: 'student_page', params: { lg: 's' }
+          %table.table.table-striped.table-dark.col-xs-8
+            %thead
+              %tr
+                %th #
+                %th Név
+                %th Neptun
+                %th Kurzus
+                %th Konzulens
+                %th Módosítás
+                %th Törlés
+            %tbody
+              - @students.each do |s|
+                %tr
+                  %th
+                    = s[5]
+                  %td
+                    = s[1]
+                  %td
+                    = s[2]
+                  - if s[3].nil?
+                    %td.text-danger
+                      NULL
+                  - else
+                    %td
+                      = s[3]
+                  - if s[4].nil?
+                    %td.text-danger
+                      NULL
+                  - else
+                    %td
+                      = s[4]
+                  %td
+                    = link_to 'Mod', edit_student_path(id: s[0])
+                  %td
+                    = link_to 'X', destroy_student_path(id: s[0])
+          .float-right
+            = link_to 'Minden hallgató törlése', destroy_all_students_path

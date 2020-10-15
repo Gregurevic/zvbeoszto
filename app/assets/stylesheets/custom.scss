@@ -41,7 +41,7 @@ body {
   .featurette-heading { font-size: 50px; }
 }
 
-#sign-in {
+.signin {
   display: -ms-flexbox;
   display: -webkit-box;
   display: flex;
@@ -51,8 +51,10 @@ body {
   align-items: center;
   -webkit-box-pack: center;
   justify-content: center;
-  padding-top: 40px;
-  padding-bottom: 40px;
+  padding-bottom: 60px;
+  height: 80%;
+  width: 100%;
+  position: absolute;
 
   .my-placeholder{}
 
