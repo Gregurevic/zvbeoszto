@@ -45,6 +45,4 @@ class AdminController < ApplicationController
   def current_schedule
   end
 
-  def course_registration
-  end  
 end

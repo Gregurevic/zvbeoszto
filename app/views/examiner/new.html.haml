@@ -1,0 +1,28 @@
+.jumbotron
+  .container-fluid
+    .row
+      .col-1
+      .col-10
+        %h1.display-3 Új vizsgáztatói státusz létrehozása
+        %p Ezen az oldalon lehet új vizsgáztatói státuszt létrehozni az adatbázisban.
+        %hr
+    .row
+      .col-1
+      .col-5
+        %ul
+          %li Már létező vizsgáztatói státuszt a "Jelentkezések" fül alatt lehet törölni.
+.container.text-center
+  = form_for @examiner, as: :examiner, url: create_examiner_path, html: {class: "form-signin"} do |f|
+    .row
+      .col-6
+        = f.label 'Vizsgatárgy', class: "sr-only"
+        = f.select :course_id, options_for_select(@courses), {}, {required: true, class: "custom-select custom-select-lg"}
+      .col-6
+        = f.label 'Vizsgáztató', class: "sr-only"
+        = f.select :instructor_id, options_for_select(@instructors), {}, {required: true, class: "custom-select custom-select-lg"}
+      .col-12.mb-3.mt-3
+        = f.submit 'Vizsgáztatói státusz létrehozása', class: "btn btn-lg btn-primary btn-block"
+    .row
+      .col-12
+        .pull-right.text-right
+          = link_to 'Vissza', applicants_path, class: "text-muted"

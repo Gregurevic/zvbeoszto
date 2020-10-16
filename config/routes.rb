@@ -32,7 +32,7 @@ Rails.application.routes.draw do
   get   'destroy_instructor',       to: 'instructor#destroy'
   get   'edit_instructor',          to: 'instructor#profile'
 
-  get   'examiners_list',    to: 'examiner#index'
+  get   'new_examiner',      to: 'examiner#new'
   post  'create_examiner',   to: 'examiner#create'
   get   'destroy_examiner',  to: 'examiner#destroy'
 end

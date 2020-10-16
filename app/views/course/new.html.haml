@@ -1,10 +1,29 @@
-%p Ezen az oldalon tudod felvenni az új kurzust az adatbázisba. Ez egy admin privilégium.
-%p Már létező kurzust a "Jelentkezések" fül alatt tudsz törölni.
-= form_for @course do |f|
-  .form_inputs
-    = f.label 'Kurzus neve'
-    = f.text_field :name, placeholder: 'Kurzusnév', required: true
-    = f.label 'Kurzus NEPTUN kódja'
-    = f.text_field :neptun, placeholder: 'BMEVIAAA000', required: true, pattern: "^BMEVI([A-Z]){3}([A-Z]|[0-9]){3}$"
-  .form-actions
-    = f.submit 'Kurzus létrehozása'
+.jumbotron
+  .container-fluid
+    .row
+      .col-1
+      .col-10
+        %h1.display-3 Új Kurzus felvitele
+        %p Ezen az oldalon lehet új kurzust felvenni az adatbázisba. Ez egy admin joghoz kötött tevékenység.
+        %hr
+    .row
+      .col-1
+      .col-5
+        %ul
+          %li Már létező kurzust a "Jelentkezések" fül alatt lehet törölni.
+.container.text-center
+  = form_for @course, html: {class: "form-signin"} do |f|
+    .row
+      .col-6
+        = f.label 'Kurzus neve', class: "sr-only"
+        = f.text_field :name, autofocus: true, placeholder: "Kurzusnév", required: true, class: "form-control form-control-lg"
+      .col-6
+        = f.label 'Kurzus NEPTUN kódja', class: "sr-only"
+        = f.text_field :neptun, placeholder: "BMEVIAAA000", required: true, pattern: "^BMEVI([A-Z]){3}([A-Z]|[0-9]){3}$", class: "form-control form-control-lg"
+      .col-12.mb-3.mt-3
+        = f.submit 'Kurzus felvitele', class: "btn btn-lg btn-primary btn-block"
+    .mb-3
+    .row
+      .col-12
+        .pull-right.text-right
+          = link_to 'Vissza', applicants_path, class: "text-muted"

@@ -1,9 +1,30 @@
-%h1 applicants
-%p Ugye hallgatót, oktatót felvinni nem admin privilégium, ezért ez a rendes workflowban van benne, ne itt keresd!
-%p Új vizsgáztatói státuszt létrehozni ittLINK vagy a vizsgáztatókra navigálva lehet.
-%p Új kurzust felvinni ittLINK vagy a megfelelő táblázat alatt lehet.
-%p Kurzus vagy oktató törlése nem vonja maga után hallgató törlését. Mivel ezek adminjoghoz kötött tevékenységek, ezért ezen a felületen lehet látható, ha inkonzisztens adat van az adatbázisban. Ez egy nagy piros NULL jelzi.
-%p A piros NULLok javítása végett is létezik a Módosítás oszlop minden táblában.
+.jumbotron
+  .container-fluid
+    .row
+      .col-1
+      .col-10
+        %h1.display-3 Jelentkezők
+        %p Ez az oldal egy áttekintést nyújt az készülő záróvizsga komponenseiről.
+        %hr
+    .row
+      .col-1
+      .col-5
+        %ul
+          %li Az alábbi táblák lehetőséget adnak adatmódosításra és törlésre.
+          %li Egy kurzus vagy oktató törlése nem vonja maga után semmilyen hallgató törlését.
+          %li Ha egy ilyen törléstől inkonzisztensek lettek az adatok, akkor ezt a hallgató táblában egy nagy, piros NULL felirat jelzi.
+      .col-5
+        %ul
+          %li
+            Új kurzust felvenni 
+            = link_to 'itt', course_registration_path
+            , illetve a Kurzusok tábla alatti linken lehet.
+          %li
+            Új vizsgáztatói státuszt létrehozni 
+            = link_to 'itt', new_examiner_path
+            , illetve a Vizsgáztatók tábla alatti linken lehet.
+          %li
+            Új hallgató vagy oktató létrehozni lehetőségünk van admin jog nélkül is, ezért erre lehetőséget ezen az oldalon nem fogunk találni.
 .container-fluid
   .row
     .col-1
@@ -40,7 +61,7 @@
                   %td
                     = link_to 'X', destroy_course_path(id: c[0])
           .float-right
-            = link_to 'Új kurzus létrehozása', course_registration_path
+            = link_to 'Új kurzus létrehozása', course_registration_path, class: "btn btn-primary"
         #list-instructor.tab-pane.fade{"aria-labelledby" => "list-instructor-list", :role => "tabpanel", :class => ("show active" if params[:lg] == 'i')}
           %h2 Oktatók
           = will_paginate @instructors, renderer: WillPaginate::ActionView::BootstrapLinkRenderer, previous_label: 'Előző', next_label: 'Következő', inner_window: 1, outer_window: 0, param_name: 'instructor_page', params: { lg: 'i' }
@@ -71,8 +92,6 @@
                     = link_to 'Mod', edit_instructor_path(id: i[0])
                   %td
                     = link_to 'X', destroy_instructor_path(id: i[0])
-          .float-right
-            = link_to 'Vizsgáztatók listája', examiners_list_path
         #list-examiner.tab-pane.fade{"aria-labelledby" => "list-examiner-list", :role => "tabpanel", :class => ("show active" if params[:lg] == 'e')}
           %h2 Vizsgáztatók
           = will_paginate @examiners, renderer: WillPaginate::ActionView::BootstrapLinkRenderer, previous_label: 'Előző', next_label: 'Következő', inner_window: 1, outer_window: 0, param_name: 'examiner_page', params: { lg: 'e' }
@@ -95,7 +114,7 @@
                   %td
                     = link_to 'X', destroy_examiner_path(id: e[0])
           .float-right
-            = link_to 'Új vizsgáztató', examiners_list_path
+            = link_to 'Új vizsgáztató létrehozása', new_examiner_path, class: "btn btn-primary"
         #list-student.tab-pane.fade{"aria-labelledby" => "list-student-list", :role => "tabpanel", :class => ("show active" if params[:lg] == 's')}
           %h2 Hallgatók
           = will_paginate @students, renderer: WillPaginate::ActionView::BootstrapLinkRenderer, previous_label: 'Előző', next_label: 'Következő', inner_window: 1, outer_window: 0, param_name: 'student_page', params: { lg: 's' }
@@ -135,4 +154,17 @@
                   %td
                     = link_to 'X', destroy_student_path(id: s[0])
           .float-right
-            = link_to 'Minden hallgató törlése', destroy_all_students_path
+            %button.btn.btn-danger{"data-target" => "#exampleModalCenter", "data-toggle" => "modal", :type => "button"}
+              Összes hallgató törlése
+            #exampleModalCenter.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "exampleModalCenterTitle", :role => "dialog", :tabindex => "-1"}
+              .modal-dialog.modal-dialog-centered{:role => "document"}
+                .modal-content
+                  .modal-header
+                    %h5#exampleModalLongTitle.modal-title Összes hallgató törlése
+                    %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+                      %span{"aria-hidden" => "true"} ×
+                  .modal-body
+                    Biztosan törlöd az összes hallgatót? Ez a művelet egy új záróvizsga jelentkezés kezdete előtt esedékes csak.
+                  .modal-footer
+                    %button.btn.btn-secondary{"data-dismiss" => "modal", :type => "button"} Mégse
+                    = link_to 'Összes törlése', destroy_all_students_path, class: "btn btn-danger"
