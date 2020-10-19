@@ -1,16 +1,31 @@
-%h2 Oktatói regisztráció
-= form_for( @instructor, as: :instructor, url: instructor_registration_path(user_id: params[:user_id])) do |f|
-  .field
-    = f.label 'Név'
-    = f.text_field :name, autofocus: true, placeholder: 'Nánási Anna', required: true
-    = f.label 'Elnöki posztot betölthet'
-    = f.check_box :can_be_president
-    = f.label 'Titkári posztot betölthet'
-    = f.check_box :can_be_secretary
-    = f.label 'Tagi posztot betölthet'
-    = f.check_box :can_be_member
-    = f.label 'Az alábbi tárgyakat oktatom'
-    %p Windows-on a Ctrl, Mac-on a Command lenyomásávál tud többet kijelölni egyszerre.
-    = f.select :course_list, options_for_select(@courses), {}, multiple:true, required: true
-  .actions
-    = f.submit 'Tovább'
+.signin.text-center
+  = form_for( @instructor, as: :instructor, url: instructor_registration_path(user_id: params[:user_id])) do |f|
+    %img.mb-4{:alt => "", :height => "72", :src => "/assets/logo.png", :width => "144"}
+    %h1.h3.mb-3.font-weight-normal Oktatói regisztráció
+    = f.label 'Név', class: "sr-only"
+    = f.text_field :name, autofocus: true, placeholder: 'Név', required: true, class: "form-control form-control-lg"
+    .container.mt-3
+      .row
+        .col-8.text-right
+          = f.label 'Elnöki posztot betölthet', class: "sr-only"
+          %h1.h3.mb-3.font-weight-normal Elnöki posztot betölthet
+        .col-4.text-left
+          = f.check_box :can_be_president
+      .row
+        .col-8.text-right
+          = f.label 'Titkári posztot betölthet', class: "sr-only"
+          %h1.h3.mb-3.font-weight-normal Titkári posztot betölthet
+        .col-4.text-left
+          = f.check_box :can_be_secretary
+      .row
+        .col-8.text-right
+          = f.label 'Tagi posztot betölthet', class: "sr-only"
+          %h1.h3.mb-3.font-weight-normal Tagi posztot betölthet
+        .col-4.text-left
+          = f.check_box :can_be_member
+    = f.label 'Az alábbi tárgyakat oktatom', class: "sr-only"
+    %h1.h3.font-weight-normal Az alábbi tárgyakat oktatom
+    .mb-3.text-muted Windows-on a Ctrl, Mac-on a Command lenyomásávál tud többet kijelölni egyszerre.
+    = f.select :course_list, options_for_select(@courses), {}, {multiple: true, required: true, class: "custom-select custom-select-lg"}
+    .mt-3.mb-3
+    = f.submit 'Tovább', class: "btn btn-lg btn-primary btn-block"

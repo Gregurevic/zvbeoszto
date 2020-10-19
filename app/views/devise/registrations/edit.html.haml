@@ -1,36 +1,45 @@
-%h2
-  Edit #{resource_name.to_s.humanize} eztíromát lolikszdé
-= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
-  = render "devise/shared/error_messages", resource: resource
-  .field
-    = f.label :email
-    %br/
-    = f.email_field :email, autofocus: true, autocomplete: "email"
-  - if devise_mapping.confirmable? && resource.pending_reconfirmation?
-    %div
-      Currently waiting confirmation for: #{resource.unconfirmed_email}
-  .field
-    = f.label :password
-    %i (leave blank if you don't want to change it)
-    %br/
-    = f.password_field :password, autocomplete: "new-password"
-    - if @minimum_password_length
-      %br/
-      %em
-        = @minimum_password_length
-        characters minimum
-  .field
-    = f.label :password_confirmation
-    %br/
-    = f.password_field :password_confirmation, autocomplete: "new-password"
-  .field
-    = f.label :current_password
-    %i (we need your current password to confirm your changes)
-    %br/
-    = f.password_field :current_password, autocomplete: "current-password"
-  .actions
-    = f.submit "Update"
-%h3 Cancel my account
-%p
-  Unhappy? #{button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete}
-= link_to "Back", :back
+.jumbotron
+  .container-fluid
+    .row
+      .col-1
+      .col-10
+        %h1.display-3 Felhasználói adatok
+        %p Ezen az oldalon van lehetőséged megtekinteni és módosítani a portálhoz köthető adataidat.
+        %hr
+    .row
+      .col-1
+      .col-5
+        %ul
+          %li
+            Az új jelszóhoz kapcsolódó mezőket, csak akkor töltsd ki, ha meg szeretnéd változtatni a jelszavad.
+          %li
+            Ha bármilyen adatot módosítani szeretnél, akkor a jelenlegi jelszavadat meg kell add hozzá.
+      .col-5
+        %ul
+          %li
+            Amennyiben a felhasználódat minden adatával törölni szeretnéd, ezt 
+            = link_to 'itt', @user.rank == "student" ? destroy_student_path(@user.rank_id) : @user.rank == 'instructor' ? destroy_instructor_path(@user.rank_id) : applicants_path, class: "text-danger"
+            teheted meg.
+.container.text-center
+  = form_for @user, as: :user, url: registration_path(:user, id: @user.id, rank: @user.rank), html: {method: :put, class: "form-signin"} do |f|
+    .row
+      .col-6
+        = f.label :email, class: "sr-only"
+        = f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Email cím", class: "form-control form-control-lg"
+      .col-6
+        = f.label :current_password, class: "sr-only"
+        = f.password_field :current_password, required: true, autocomplete: "current-password", placeholder: "Jelszavad", class: "form-control form-control-lg"
+    .row.mb-3.mt-3
+      .col-6
+        = f.label :password, class: "sr-only"
+        = f.password_field :password, autocomplete: "new-password", placeholder: "Új jelszó", class: "form-control form-control-lg"
+      .col-6
+        = f.label :password_confirmation, class: "sr-only"
+        = f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "Új jelszó még egyszer", class: "form-control form-control-lg"
+    .row.mb-3.mt-3
+      .col-12
+        = f.submit 'Módosítás', class: "btn btn-lg btn-primary btn-block"
+    .row
+      .col-12
+        .pull-right.text-right
+          = link_to 'Vissza', @user.rank == 'student' ? edit_student_path(id: @user.rank_id) : edit_instructor_path(id: @user.rank_id), class: "text-muted"

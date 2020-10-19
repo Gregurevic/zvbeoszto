@@ -1,17 +1,49 @@
-%h1 Záróvizsga adatok
-%p itt van lehetőség a hallgató záróvizsgához adatainak megváltoztatására
-%p a felhasználói adatok megváltoztatására ittLINK vagy lentebb van lehetőség
-= form_for( @student, as: :student, url: student_registration_path ) do |f|
-  .field
-    = f.label 'Név'
-    = f.text_field :name, autofocus: true, placeholder: 'Nánási Anna', required: true
-    = f.label 'Neptun (Nagybetűvel)'
-    = f.text_field :neptun, placeholder: 'B4TM4N', required: true, pattern: "^([A-Z]|[0-9]){6}$"
-    = f.label 'Konzulens'
-    = f.select :instructor_id, options_for_select(@instructors), required: true
-    = f.label 'Vizsgatárgy'
-    = f.select :course_id, options_for_select(@courses), required: true
-  .actions
-    = f.submit 'Módosítás'
-.pill-right
-  = link_to 'Felhasználói adatok módosítása', edit_user_registration_path(id: @student.id)
+.jumbotron
+  .container-fluid
+    .row
+      .col-1
+      .col-10
+        %h1.display-3 Hallgató adatai
+        %p Ezen az oldalon lehet megtekinteni és módosítani a hallgató záróvizsgához köthető adatait.
+        %hr
+    .row
+      .col-1
+      .col-5
+        %ul
+          %li
+            = @student.name
+          %li
+            = @student.neptun
+          %li
+            = @student.course.name
+          %li
+            = @student.instructor.name
+      .col-5
+        %ul
+          %li
+            A hallgató felhasználói adatait 
+            = link_to 'itt', edit_user_registration_path(id: @student.id, rank: 'student')
+            tudjuk módosítani.
+.container.text-center
+  = form_for @student, as: :student, url: student_registration_path, html: {class: "form-signin"} do |f|
+    .row
+      .col-6
+        = f.label 'Név', class: "sr-only"
+        = f.text_field :name, autofocus: true, placeholder: 'Nánási Anna', required: true, class: "form-control form-control-lg"
+      .col-6
+        = f.label 'Neptun (Nagybetűvel)', class: "sr-only"
+        = f.text_field :neptun, placeholder: 'B4TM4N', required: true, pattern: "^([A-Z]|[0-9]){6}$", class: "form-control form-control-lg"
+    .row.mb-3.mt-3
+      .col-6
+        = f.label 'Konzulens', class: "sr-only"
+        = f.select :instructor_id, options_for_select(@instructors), {}, {required: true, class: "custom-select custom-select-lg"}
+      .col-6
+        = f.label 'Vizsgatárgy', class: "sr-only"
+        = f.select :course_id, options_for_select(@courses), {}, {required: true, class: "custom-select custom-select-lg"}
+    .row.mb-3.mt-3
+      .col-12
+        = f.submit 'Módosítás', class: "btn btn-lg btn-primary btn-block"
+    .row
+      .col-12
+        .pull-right.text-right
+          = link_to 'Felhasználói adatok módosítása', edit_user_registration_path(id: @student.id, rank: 'student'), class: "text-muted"

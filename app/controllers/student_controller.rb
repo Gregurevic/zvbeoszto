@@ -43,9 +43,6 @@ class StudentController < ApplicationController
     end
   end
 
-  def schedule
-  end
-
   def destroy
     Student.find(params[:id]).delete_with_user
     redirect_to applicants_path
