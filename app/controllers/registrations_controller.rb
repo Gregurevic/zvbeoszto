@@ -1,6 +1,7 @@
 class RegistrationsController < Devise::RegistrationsController
   before_action :authenticate_user!, only:[:edit, :update]
-  before_action :admin_or_owner?, only:[:edit, :update]
+  before_action :admin_or_rid?, only:[:edit]
+  before_action :admin_or_uid?, only: [:update]
 
   def create
     @user = User.new(sign_up_params)
@@ -48,8 +49,15 @@ class RegistrationsController < Devise::RegistrationsController
     params.require(:user).permit(:email, :password, :password_confirmation, :rank, :current_password)
   end
 
-  def admin_or_owner?
-    unless current_user.is_admin? || current_user.id == params[:id]
+  def admin_or_uid?
+    unless current_user.is_admin? || current_user.id.to_s == params[:id]
+      redirect_to root_url
+      flash[:alert] = 'You do not have access to this content!'
+    end
+  end
+
+  def admin_or_rid?
+    unless current_user.is_admin? || current_user.rank_id.to_s == params[:id]
       redirect_to root_url
       flash[:alert] = 'You do not have access to this content!'
     end

@@ -7,10 +7,11 @@ Rails.application.routes.draw do
     patch 'update_user_registration' => 'devise/registrations#update'
   end
 
-  get 'schedule',  to: 'schedule#show'
+  get 'schedule',           to: 'schedule#show'
+  get 'delete_schedule',    to: 'schedule#delete'
+  get 'create_schedule',    to: 'schedule#create'
 
   get 'applicants',        to: 'admin#applicants'
-  get 'current_schedule',  to: 'admin#current_schedule'
 
   get    '/courses'              =>   'course#index'
   get    'course_registration',  to:  'course#new'

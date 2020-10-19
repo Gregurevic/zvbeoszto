@@ -1,5 +1,6 @@
 class InstructorController < ApplicationController
-  before_action :authenticate_user!, only: [:profile, :schedule]
+  before_action :authenticate_user!, only: [:profile, :update]
+  before_action :admin_or_rid?, only: [:profile, :update]
   before_action :admin_access, only: [:destroy]
   before_action :construct_courses, only: [:create, :update]
   
@@ -51,7 +52,7 @@ class InstructorController < ApplicationController
           Examiner.create(course_id: Course.where(neptun: c).pluck(:id)[0], instructor_id: instructor_id)
         end
       end
-      redirect_to applicants_path
+      redirect_to current_user.is_admin? ? applicants_path : edit_instructor_path(id: params[:id])
       flash[:alert] = 'A hallgató adatmódosítása sikeres.'
     else
       redirect_back(fallback_location: root_path)
@@ -75,6 +76,13 @@ class InstructorController < ApplicationController
       params[:instructor][:course_list] = temp.join
     else
       params[:instructor][:course_list] = ""
+    end
+  end
+
+  def admin_or_rid?
+    unless current_user.is_admin? || current_user.rank_id.to_s == params[:id]
+      redirect_to root_url
+      flash[:alert] = 'You do not have access to this content!'
     end
   end
 

@@ -1,1 +1,60 @@
-current_schedule
+.jumbotron
+  .container-fluid
+    .row
+      .col-1
+      .col-10
+        %h1.display-3 Beosztás
+        - if @a
+          %p Itt tudod elkészíteni a záróvizsga beosztását.
+        - else
+          %p Ez az oldal listázza ki azokat az idősávokat, amikben szerepelsz.
+        %hr
+.container
+  - if @schedules.empty?
+    %h1.mb-3.text-muted Amint elkészül a beosztás itt találsz majd minden számodra releváns idősávot.
+    - if @a
+      .pt-5.pb-5
+      .text-center
+        = link_to 'Beosztás', create_schedule_path, class: "btn btn-lg btn-success"
+  - else
+    .row
+      .col-12
+        %h2 Idősávok
+        = will_paginate @schedules, renderer: WillPaginate::ActionView::BootstrapLinkRenderer, previous_label: 'Előző', next_label: 'Következő', inner_window: 1, outer_window: 0, param_name: 'course_page', params: { lg: 'c' }
+        %table.table.table-striped.table-dark.col-xs-8
+          %thead
+            %tr
+              %th #
+              %th Hallgató
+              %th Konzulens
+              %th Elnök
+              %th Titkár
+              %th Tag
+              %th Vizsgáztató
+              %th Kurzus
+          %tbody
+            - @schedules.each do |s|
+              %tr
+                %th
+                  = s.id
+                %td
+                  = s.student
+                %td
+                  = s.supervisor
+                %th.font-weight-normal
+                  = s.president
+                %td
+                  = s.secretary
+                %td
+                  = s.member
+                %td
+                  = s.examiner
+                %td
+                  = s.course
+    - if @a
+      .row
+        .col-3
+        .col-3.text-center
+          = link_to 'Törlés', delete_schedule_path, class: "btn btn-lg btn-danger"
+        .col-3.text-center
+          = link_to 'Letöltés', schedule_path(format: :xlsx), class: "btn btn-lg btn-success"

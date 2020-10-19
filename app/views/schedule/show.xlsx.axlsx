@@ -1,0 +1,15 @@
+wb = xlsx_package.workbook
+
+wb.styles do |style|
+  #heading style bold
+  heading = style.add_style(b: true, sz: 14)
+
+  wb.add_worksheet(name: "Beosztas") do |sheet|
+    # Create the header row
+    sheet.add_row ["Id", "Student", "Supervisor", "President", "Secretary", "Member", "Examiner", "Course"], style: heading
+    # Create entries for each item
+    @schedules.each do |sch|
+      sheet.add_row [sch.id, sch.student, sch.supervisor, sch.president, sch.secretary, sch.member, sch.examiner, sch.course]
+    end
+  end
+end

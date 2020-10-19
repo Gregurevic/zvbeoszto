@@ -42,7 +42,4 @@ class AdminController < ApplicationController
     @students = @students.paginate(page: params[:student_page], per_page: 12)
   end
 
-  def current_schedule
-  end
-
 end

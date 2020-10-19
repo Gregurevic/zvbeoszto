@@ -11,13 +11,11 @@
         - if current_user.is_admin?
           %li.nav-item.active
             %a.nav-link{:href => applicants_path} Jelentkezések
-          %li.nav-item.active
-            %a.nav-link{:href => current_schedule_path} Beosztás
         - else
           %li.nav-item.active
-            %a.nav-link{:href => profile_path} Profilom
-          %li.nav-item.active
-            %a.nav-link{:href => schedule_path} Beosztásom
+            %a.nav-link{:href => current_user.is_instructor? ? edit_instructor_path(id: current_user.id) : edit_student_path(id: current_user.rank_id)} Profilom
+        %li.nav-item.active
+          %a.nav-link{:href => schedule_path} Beosztás
         %li.nav-item.active
           %a.nav-link{:href => destroy_user_session_path, :method => :delete} Kijelentkezés
       - else

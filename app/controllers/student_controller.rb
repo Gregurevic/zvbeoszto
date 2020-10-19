@@ -1,5 +1,6 @@
 class StudentController < ApplicationController
-  before_action :authenticate_user!, only: [:profile, :schedule]
+  before_action :authenticate_user!, only: [:profile, :update]
+  before_action :admin_or_rid?, only: [:profile, :update]
   before_action :admin_access, only: [:destroy, :destroy_all]
   
   def new
@@ -30,12 +31,12 @@ class StudentController < ApplicationController
   end
 
   def update
-    @student = Student.find_by(neptun: student_params[:neptun])
+    @student = Student.find(params[:id])
     if @student.update( name: student_params[:name],
                         neptun: student_params[:neptun],
                         instructor_id: instructor_id_from_list(student_params[:instructor_id]),
                         course_id: course_id_from_list(student_params[:course_id]))
-      redirect_to applicants_path
+      redirect_to current_user.is_admin? ? applicants_path : edit_student_path(id: params[:id])
       flash[:alert] = 'A hallgató adatmódosítása sikeres.'
     else
       redirect_back(fallback_location: root_path)
@@ -57,6 +58,13 @@ class StudentController < ApplicationController
 
   def student_params
     params.require(:student).permit(:name, :neptun, :instructor_id, :course_id)
+  end
+
+  def admin_or_rid?
+    unless current_user.is_admin? || current_user.rank_id.to_s == params[:id]
+      redirect_to root_url
+      flash[:alert] = 'You do not have access to this content!'
+    end
   end
 
 end
