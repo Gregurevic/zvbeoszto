@@ -25,6 +25,8 @@ class ScheduleController < ApplicationController
   end
 
   def create
+    Schedule.new().schedule
+    redirect_to applicants_path
   end
 
   def delete
