@@ -8,14 +8,15 @@ class Schedule < ApplicationRecord
     #variables
     instructors = Instructor.all.pluck(:can_be_president, :can_be_secretary, :can_be_member, :presence).map{ |a, b, c, d| { president: a, secretary: b, member: c, presence: d } }
     instructors.each do |i|
-      i[:presence] = i[:presence].split('')
-      i[:presence].each do |ip|
-        ip = (ip == 'x') ? true : false
+      temp = i[:presence].split('')
+      i[:presence] = []
+      temp.each do |ip|
+        i[:presence] << (ip == 'x') ? true : false
       end
     end
-    byebug
+    ts = Student.count
     i_c = instructors.count
-    inst = []
+    inst = Array.new(ts){Array.new(i_c)}
 
     for i in 0..(ts - 1)
       for j in 0..(i_c - 1)
@@ -34,8 +35,8 @@ class Schedule < ApplicationRecord
     temp = 0
     for i in 0..(ts - 1)
       for j in 0..(i_c - 1)
-        if !instructors[i].presence[j] && inst[i][j] == 1
-          temp += 1000
+        if !instructors[j][:presence][i]
+          temp += 1000 * inst[i][j]
         end
       end
     end
@@ -45,7 +46,8 @@ class Schedule < ApplicationRecord
     #solving
     problem = m.to_problem
     problem.solve
-
+    
+    byebug
     #proven solvable
     if problem.proven_infeasible?
       return false
@@ -56,7 +58,6 @@ class Schedule < ApplicationRecord
 
     #return
     return problem.objective_value
-    byebug
   end
 
 end
