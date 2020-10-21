@@ -1,36 +1,44 @@
 class Schedule < ApplicationRecord
 
   def schedule
+    #sanity
     Schedule.delete_all
+    #model
+    m = Cbc::Model.new
+    #variables
+    instructors = Instructor.all.to_a
+    i_c = instructors.count
+    inst = []
 
-    model = Cbc::Model.new
-
-    s_c = Student.count
-    i_c = Instructor.count
-    r_c = s_c + i_c
-
-    for i in 0..(s_c - 1) #per timeslot
-      model.bin_var_array(r_c, 0..1, names: (0..(r_c - 1)).to_a.map{ |x| "TS#{i}R" + x.to_s })
+    for i in 0..(ts - 1)
+      inst << m.bin_var_array(i_c, names: (0..(i_c - 1)).to_a.map{ |x| "TS#{i}I" + x.to_s })
     end
 
-    ip_c = Instructor.where(can_be_president: true).count
-    is_c = Instructor.where(can_be_secretary: true).count
-    session_c = (s_c / 5.to_f).ceil #20
-
-    for i in 0..(session_c - 1)
-      model.bin_var_array(ip_c, 0..1, names: (0..(ip_c - 1)).to_a.map{ |x| "TS#{i}P" + x.to_s })
-      model.bin_var_array(is_c, 0..1, names: (0..(is_c - 1)).to_a.map{ |x| "TS#{i}S" + x.to_s })
+    #constraints
+    ## maximum of five instructors
+    for i in 0..(ts - 1)
+      m.enforce(inst[i].inject(0, :+) <= 5)
     end
 
-    im_c = Instructor.where(can_be_member: true).count
 
-    model.bin_var_array(ip_c, 0..1, names: (0..(ip_c - 1)).to_a.map{ |x| "PtempP" + x.to_s })
-    model.bin_var_array(is_c, 0..1, names: (0..(is_c - 1)).to_a.map{ |x| "StempP" + x.to_s })
-    model.bin_var_array(im_c, 0..1, names: (0..(im_c - 1)).to_a.map{ |x| "MtempP" + x.to_s })
-    model.bin_var_array(ip_c, 0..1, names: (0..(ip_c - 1)).to_a.map{ |x| "PtempQ" + x.to_s })
-    model.bin_var_array(is_c, 0..1, names: (0..(is_c - 1)).to_a.map{ |x| "StempQ" + x.to_s })
-    model.bin_var_array(im_c, 0..1, names: (0..(im_c - 1)).to_a.map{ |x| "MtempQ" + x.to_s })
+    #objective
+    m.minimize(  )
 
+    #solving
+    problem = m.to_problem
+    problem.solve
+
+    #proven solvable
+    if problem.proven_infeasible?
+      return false
+    end
+
+    #write
+    #Schedule.create(problem.value_of(#{var}))
+
+    #return
+    return problem.objective_value
+    byebug
   end
 
 end

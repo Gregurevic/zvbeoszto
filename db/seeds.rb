@@ -72,16 +72,70 @@ instructors = {
   I47: { name: "Fazekas Péter",          can_be_president: false,  can_be_member: false,  can_be_secretary: false  }
 }
 
+presence = [
+"x x x x x x x x x x x x x x x x x x x x                                                                                 x x x x x x x x x x                     x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x",
+"x x x x x x x x x x x x x x x x x x     x x x x x x x           x x x x x x x   x x x x   x x x x x x x   x x x x x     x x x x x x x           x x x x x x x   x x x x     x x x x x x x x x x x x x x x x   x x x x x    ",
+"x         x x x x x x x x x             x x x x x x x x x x x x       x x x x x x x x x x x x x x x x x x x             x x x x x x x x x x x x x x x x x x x x                     x x x x x x x x x x x x x x            ",
+"x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x           x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x           x                   x x x x             x x x x x x x x x x",
+"x x x x x x         x x x x x x x x x x x x x x x x x x x x                     x x x x x x                             x x x x x x                                                 x x x x x x         x x x x x x x x x x",
+"                                                                                x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x",
+"                                                                                                                        x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x",
+"            x x x x x x x x x x x x x x x x x x x x x x x x           x x x x x x x x x x           x x x x x x x x x x x x x x x x x x x x           x x x x x x x x x x x x x x x x x x x             x x x x x x x x x x",
+"    x x x x x x x x       x x x x x x x       x x x x x x x   x x x x             x x x x x x x x x       x x x x x x x       x x x x x x x   x x x x                 x x x           x x x x x x x x x       x x x x x x x",
+"x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x       x x x x x x x",
+"x x x x x x x x x x         x x x x x x             x x x x x x x x x                       x x x x x x x x x x x x x x x x x x x x x x x x x x x x             x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x",
+"    x x x x x x                               x x x x       x x x x x x x x x x x x x x x x x x                                                     x x x x x x                                                            ",
+"x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x",
+"x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x",
+"  x x x x x x x x x   x x x x x x x x x   x x x x x x x x x     x x x x x x x x                       x x x x x x x x x   x x x x x x x x x   x x x x x x x x x   x x x x x x x x x     x x x x x x x x   x x x x x x x x x",
+"  x x x x x x x x x   x x x x x x x x x   x x x x x x x x x   x x x               x x x x x x x x x   x x x x x x x x x   x x x x x x x x x                       x x x x x x x x x   x x x x x x x x x   x x x x x x x x x",
+"x x x x x x x x x x x x x x x x x x x x                                         x x x x x x x x x x x x x x x x x x x x                                                             x x x x x x x x x x x x x x x x x x x x",
+"  x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x         x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x",
+"x x x x     x       x x x x x x x       x x x x             x x x x     x x     x x x x x x x x     x x x x x x x       x x x x             x x x x x x x x                         x x x x x x x x     x x x x x x x x    ",
+"x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x           x x x x x x x x x x x x x x x           x x x x x x x x x x x x x x x x x x x x x x x x x           x x x x x x x x x x",
+"                    x x x x x x x x x x x x x x x x x x x x                                         x x x x x x x x x x x x x x x x x x x x                                         x x x x x x x x x x x x x x x x x x x x",
+"x x x x x x x x x   x x x x x x         x x x x x x x x x   x x x x     x x x   x x x x x x x x x   x x x x x x         x x x x x x x x x   x x x x     x x x   x x x x x x         x x x x x x x x x   x x x x x x        ",
+"x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x",
+"                                        x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x                     x x x x x x x x x x x x x x x x x x x x                     x x x x x x x x x x                    ",
+"x x               x x x               x x x               x x x               x x x               x x x               x x x               x x x               x x x               x x x               x x x               x",
+"x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x       x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x       x x x x x x x       x x x x x x x       x x x x x x x x x x",
+"                      x x x x x x x x x                       x x x         x x   x x x x x x x x x                         x x x x x x x x   x x x       x x x   x x x x x x x x x   x x x x x x x x x                    ",
+"                                        x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x",
+"        x x x x x x         x x x x x x         x x x x x x         x x x x x x         x x x x x x         x x x x x x         x x x x x x         x x x x x x         x x x x x x         x x x x x x         x x x x x x",
+"x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x                                                                                                     x x x x x x x x x x x x x x x x x x x x",
+"x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x             x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x",
+"x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x",
+"x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x                                                                                                                        ",
+"    x x x x x x x                           x x x x x x x       x x x x x x x       x x x x x x x                           x x x x x x x       x x x x x x x       x x x x x x x       x x x x x x x                      ",
+"  x x x x x x x x x   x x x x x x x x x   x x x x x x x x x     x x x x x x x x   x x x x x x x x x   x x x x x x x x x   x x x x x x x x x     x x x x x x x x   x x x x x x x x x   x x x x x x x x x   x x x x x x x x x",
+"x x x x x x x x     x x x x x x x                                                                                                                                                                                          ",
+"x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x",
+"x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x",
+"x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x",
+"x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x",
+"x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x",
+"x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x",
+"x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x",
+"x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x",
+"x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x",
+"x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x",
+"x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x",
+"x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x"
+]
+
+i = 0
 instructors.each do |key, hash|
   Instructor.create(  name:              hash[:name],
   	                  can_be_president:  hash[:can_be_president],
   	                  can_be_secretary:  hash[:can_be_secretary],
-  	                  can_be_member:     hash[:can_be_member] )
+  	                  can_be_member:     hash[:can_be_member],
+                      presence: presence[i].gsub!('x ', 'x').gsub!('  ', ' ') )
   User.create(  email: key.to_s + "@email.com",
                 password: 'bmevikzarovizsgaztato',
                 password_confirmation: 'bmevikzarovizsgaztato',
                 rank: 'instructor',
                 rank_id: Instructor.find_by(name: hash[:name]).id )
+  i += 1
 end
 
 students = [

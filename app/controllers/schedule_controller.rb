@@ -26,7 +26,7 @@ class ScheduleController < ApplicationController
 
   def create
     Schedule.new().schedule
-    redirect_to applicants_path
+    redirect_to schedule_path
   end
 
   def delete
