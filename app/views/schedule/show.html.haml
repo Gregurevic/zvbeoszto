@@ -20,7 +20,7 @@
     .row
       .col-12
         %h2 Idősávok
-        = will_paginate @schedules, renderer: WillPaginate::ActionView::BootstrapLinkRenderer, previous_label: 'Előző', next_label: 'Következő', inner_window: 1, outer_window: 0, param_name: 'course_page', params: { lg: 'c' }
+        = will_paginate @schedules, renderer: WillPaginate::ActionView::BootstrapLinkRenderer, previous_label: 'Előző', next_label: 'Következő', inner_window: 1, outer_window: 0, param_name: 'page'
         %table.table.table-striped.table-dark.col-xs-8
           %thead
             %tr

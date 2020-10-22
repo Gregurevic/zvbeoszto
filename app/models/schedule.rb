@@ -36,20 +36,29 @@ class Schedule < ApplicationRecord
       end
     end
 
+    ## workloads
+    w_p = m.cont_var(0..Cbc::INF, name: "w_P")
+    w_s = m.cont_var(0..Cbc::INF, name: "w_S")
+    w_m = m.cont_var(0..Cbc::INF, name: "w_M")
+
     #constraints
     ## maximum of five instructors
-    ## exactly one president in every slot
-    ## exactly one secretary in every slot
-    ## exactly one member in every slot
+    ## exactly one president in every timeslot
+    ## exactly one secretary in every timeslot
+    ## exactly one member in every timeslot
+    ## the president has to be available
+    ## the secretary has to be available
     for i in 0..(ts - 1)
       tempP = 0
       tempS = 0
       tempM = 0
       for j in 0..(i_c - 1)
         if instructors[j][:can_be_president]
+          m.enforce((instructors[j][:presence][i] ? 1 : 0) - inst[i][j] >= 0)
           tempP += inst[i][j]
         end
         if instructors[j][:can_be_secretary]
+          m.enforce((instructors[j][:presence][i] ? 1 : 0) - inst[i][j] >= 0)
           tempS += inst[i][j]
         end
         if instructors[j][:can_be_member]
@@ -62,7 +71,7 @@ class Schedule < ApplicationRecord
       m.enforce(inst[i].inject(0, :+) <= 5)
     end
 
-    ## exactly one student in every slot 
+    ## exactly one student in every timeslot 
     ## student's supervisor must be present   
     ## an examiner must be present
     for i in 0..(ts - 1)
@@ -77,6 +86,68 @@ class Schedule < ApplicationRecord
       end
       m.enforce(stud[i].inject(0, :+) == 1)
     end
+
+    ## the president mustn't change
+    ## the secretary mustn't change
+    for i in (0..(ts - 1)).step(5)
+      for j in 0..(i_c - 1)
+        if instructors[j][:can_be_president] || instructors[j][:can_be_secretary]
+          m.enforce(inst[ i ][j] == inst[i+1][j])
+          m.enforce(inst[i+1][j] == inst[i+2][j])
+          m.enforce(inst[i+2][j] == inst[i+3][j])
+          m.enforce(inst[i+3][j] == inst[i+4][j])
+        end
+      end
+    end
+
+    ## workloads of presidents
+    opt = ts / instructors.count{ |i| i[:can_be_president] }
+    for j in 0..(i_c - 1)
+      temp = 0
+      if instructors[j][:can_be_president]
+        for i in 0..(ts - 1)
+          temp += inst[i][j]
+        end
+        if temp >= opt
+          w_p += (temp - opt)
+        else
+          w_p += (opt - temp)
+        end
+      end
+    end
+
+    ## workloads of secretaries
+    opt = ts / instructors.count{ |i| i[:can_be_secretary] }
+    for j in 0..(i_c - 1)
+      temp = 0
+      if instructors[j][:can_be_secretary]
+        for i in 0..(ts - 1)
+          temp += inst[i][j]
+        end
+        if temp >= opt
+          w_s += (temp - opt)
+        else
+          w_s += (opt - temp)
+        end
+      end
+    end
+
+    ## workloads of members
+    opt = ts / instructors.count{ |i| i[:can_be_member] }
+    for j in 0..(i_c - 1)
+      temp = 0
+      if instructors[j][:can_be_member]
+        for i in 0..(ts - 1)
+          temp += inst[i][j]
+        end
+        if temp >= opt
+          w_m += (temp - opt)
+        else
+          w_m += (opt - temp)
+        end
+      end
+    end
+
     
     #objective
     not_present_count = 0
@@ -88,23 +159,52 @@ class Schedule < ApplicationRecord
       end
     end
 
-    m.minimize( not_present_count )
+    m.minimize( not_present_count + 0.2 * w_p + 0.2 * w_s + w_m)
 
     #solving
     problem = m.to_problem
     problem.solve
 
-    byebug
     #proven solvable
     if problem.proven_infeasible?
       return false
     end
 
     #write
-    #Schedule.create(problem.value_of(#{var}))
+    for i in 0..(ts - 1)
+      si = stud[i].index{ |s| problem.value_of(s) == 1 }
+      student = students[si][:name]
+      supervisor = instructors.find{ |ins| ins[:id] == students[si][:instructor_id] }[:name]
+      course = Course.where(id: students[si][:course_id]).pluck(:name)[0]
+      idxs = instructors.each_index.select{ |ins| problem.value_of(inst[i][ins]) == 1 }
+      president = ""
+      secretary = ""
+      member = ""
+      examiner = ""
+      idxs.each do|idx|
+        if instructors[idx][:can_be_president]
+          president = instructors[idx][:name]
+        end
+        if instructors[idx][:can_be_secretary]
+          secretary = instructors[idx][:name]
+        end
+        if instructors[idx][:can_be_member]
+          member = instructors[idx][:name]
+        end
+        if instructors[idx][:courses].include? students[si][:course_id]
+          examiner = instructors[idx][:name]
+        end
+      end
+      Schedule.create(student: student, supervisor: supervisor, president: president, secretary: secretary, member: member, examiner: examiner, course: course)
+    end
 
     #return
     return problem.objective_value
   end
+
+  # kérdések
+  ## A workload súlyok rendben vannak?
+  ## Milyen határok közé kell beszorítani a workloadokat? (ergo: hiányzik 3 enforce)
+  ## Jó így a beosztás? * kétségbeesik *
 
 end
