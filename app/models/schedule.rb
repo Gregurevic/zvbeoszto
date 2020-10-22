@@ -46,9 +46,15 @@ class Schedule < ApplicationRecord
       tempS = 0
       tempM = 0
       for j in 0..(i_c - 1)
-        tempS += instructors[j][:can_be_president] ? inst[i][j] : 0
-        tempS += instructors[j][:can_be_secretary] ? inst[i][j] : 0
-        tempM += instructors[j][:can_be_member] ? inst[i][j] : 0
+        if instructors[j][:can_be_president]
+          tempP += inst[i][j]
+        end
+        if instructors[j][:can_be_secretary]
+          tempS += inst[i][j]
+        end
+        if instructors[j][:can_be_member]
+          tempM += inst[i][j]
+        end
       end
       m.enforce(tempP == 1)
       m.enforce(tempS == 1)
@@ -56,18 +62,8 @@ class Schedule < ApplicationRecord
       m.enforce(inst[i].inject(0, :+) <= 5)
     end
 
-    ## exactly one student in every slot
-    for i in 0..(ts - 1)
-      m.enforce(stud[i].inject(0, :+) == 1)
-    end
-    
-    ## student's supervisor must be present
-    for i in 0..(ts - 1)
-      for j in 0..(s_c - 1)
-        m.enforce(inst[i][instructors.index{ |ins| ins[:id] == students[j][:instructor_id] }] - stud[i][j] >= 0)
-      end
-    end
-    
+    ## exactly one student in every slot 
+    ## student's supervisor must be present   
     ## an examiner must be present
     for i in 0..(ts - 1)
       for j in 0..(s_c - 1)
@@ -77,7 +73,9 @@ class Schedule < ApplicationRecord
           temp += inst[i][idx]
         end
         m.enforce(temp - stud[i][j] >= 0)
+        m.enforce(inst[i][instructors.index{ |ins| ins[:id] == students[j][:instructor_id] }] - stud[i][j] >= 0)
       end
+      m.enforce(stud[i].inject(0, :+) == 1)
     end
     
     #objective
