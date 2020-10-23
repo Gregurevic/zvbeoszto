@@ -6,6 +6,7 @@ ruby '2.7.1'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.3'
 gem 'haml'
 gem 'devise'
+gem 'pg'
 gem 'ruby-cbc'
 gem 'rubyzip', '>= 1.2.1'
 gem 'axlsx', git: 'https://github.com/randym/axlsx.git', ref: 'c8ac844'
@@ -38,7 +39,6 @@ group :test do
 end
 
 group :production do
-  gem 'pg'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
