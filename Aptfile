@@ -1,1 +1,11 @@
-sudo apt-get install coinor-libcbc-dev
+coinor-libcgl1
+coinor-libclp1
+coinor-libcoinutils3
+coinor-libosi1
+libbz2-1.0
+libc6 
+libgcc1
+libstdc++6 
+zlib1g
+coinor-libcbc3
+coinor-libcbc-dev
