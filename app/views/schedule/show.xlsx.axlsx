@@ -7,9 +7,19 @@ wb.styles do |style|
   wb.add_worksheet(name: "Beosztas") do |sheet|
     # Create the header row
     sheet.add_row ["Id", "Student", "Supervisor", "President", "Secretary", "Member", "Examiner", "Course"], style: heading
+    sheet.add_border "A1:H1", { style: :thick, color: '000000', edges: [:bottom] }
     # Create entries for each item
-    @schedules.each do |sch|
+    iter = 2
+    @printable.each do |sch|
       sheet.add_row [sch.id, sch.student, sch.supervisor, sch.president, sch.secretary, sch.member, sch.examiner, sch.course]
+      if (iter % 5) == 1
+        if (iter%2) == 1
+          sheet.add_border "A#{iter}:H#{iter}", { style: :double, color: '000000', edges: [:bottom] }
+        else
+          sheet.add_border "A#{iter}:H#{iter}", [:bottom]
+        end
+      end
+      iter += 1
     end
   end
 end

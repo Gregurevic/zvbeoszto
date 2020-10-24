@@ -15,9 +15,9 @@ class ScheduleController < ApplicationController
       name = Student.find(current_user.rank_id).name
       @schedules = Schedule.where(student: name)
     end
-    @schedules = @schedules.paginate(page: params[:page], per_page: 12)
+    @schedules = @schedules.paginate(page: params[:page], per_page: 10)
     #download
-    @sch = Schedule.all
+    @printable = Schedule.all
     respond_to do |format|
       format.xlsx { response.headers['Content-Disposition'] = "attachment; filename=beosztas.xlsx" }
       format.html { render :show }

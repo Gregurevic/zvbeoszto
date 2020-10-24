@@ -93,3 +93,12 @@ body {
     border-top-right-radius: 0;
   }
 }
+
+.profile {
+  .my-placeholder{}
+  
+  .my-overflow {
+    height:450px;
+    overflow-y: scroll;
+  }
+}

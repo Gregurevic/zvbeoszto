@@ -2,7 +2,7 @@ class InstructorController < ApplicationController
   before_action :authenticate_user!, only: [:profile, :update]
   before_action :admin_or_rid?, only: [:profile, :update]
   before_action :admin_access, only: [:destroy]
-  before_action :construct_courses, only: [:create, :update]
+  before_action :construct_courses_and_presence, only: [:create, :update]
   
   def new
     @courses = courses_to_list
@@ -36,6 +36,7 @@ class InstructorController < ApplicationController
     @instructor = Instructor.find(params[:id])
     @courses = courses_to_list
     @my_courses = Course.where(id: Examiner.where(instructor_id: @instructor.id).pluck(:course_id)).pluck(:name)
+    @present_hours = @instructor.presence.split('')[0..(Student.count - 1)]
   end
 
   def update
@@ -45,7 +46,8 @@ class InstructorController < ApplicationController
     if @instructor.update(name:              instructor_params[:name],
                           can_be_president:  instructor_params[:can_be_president],
                           can_be_secretary:  instructor_params[:can_be_secretary],
-                          can_be_member:     instructor_params[:can_be_member])
+                          can_be_member:     instructor_params[:can_be_member],
+                          presence:          instructor_params[:present_hours])
       if courses.present?
         Examiner.delete(Examiner.where(instructor_id: instructor_id).pluck(:id))
         courses.each do |c|
@@ -63,10 +65,11 @@ class InstructorController < ApplicationController
   private
 
   def instructor_params
-    params.require(:instructor).permit(:name, :can_be_president, :can_be_secretary, :can_be_member, :course_list)
+    params.require(:instructor).permit(:name, :can_be_president, :can_be_secretary, :can_be_member, :course_list, :present_hours)
   end
 
-  def construct_courses
+  def construct_courses_and_presence
+    #courses
     if params[:instructor][:course_list].present?
       params[:instructor][:course_list].shift
       temp = []
@@ -77,6 +80,16 @@ class InstructorController < ApplicationController
     else
       params[:instructor][:course_list] = ""
     end
+    #presence
+    temp = ""
+    for i in 0..(Student.count - 1)
+      if params[:instructor][:present_hours].include? i.to_s
+        temp += "x"
+      else
+        temp += " "
+      end
+    end
+    params[:instructor][:present_hours] = temp
   end
 
   def admin_or_rid?

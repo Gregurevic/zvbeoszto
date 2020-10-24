@@ -1,0 +1,1 @@
+Time::DATE_FORMATS[:custom] = "'%g/%b/%d %H:00"

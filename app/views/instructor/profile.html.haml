@@ -1,97 +1,115 @@
-.jumbotron
-  .container-fluid
-    .row
-      .col-1
-      .col-10
-        %h1.display-3 Oktató adatai
-        %p Ezen az oldalon lehet megtekinteni és módosítani az oktató záróvizsgához köthető adatait.
-        %hr
-    .row
-      .col-1
-      .col-5
-        %ul
-          %li
-            = @instructor.name
-          %li
-            %span.d-inline
-              Elnök:
-            - if @instructor.can_be_president
-              .text-success.d-inline
-                lehet
-            - else
-              .text-danger.d-inline
-                nem lehet
-          %li
-            %span.d-inline
-              Titkár: 
-            - if @instructor.can_be_secretary
-              .text-success.d-inline
-                lehet
-            - else
-              .text-danger.d-inline
-                nem lehet
-          %li
-            %span.d-inline
-              Tag: 
-            - if @instructor.can_be_member
-              .text-success.d-inline
-                lehet
-            - else
-              .text-danger.d-inline
-                nem lehet
-          %li
-            Az alábbi tárgyakat oktatom
-            %ul
-              - @my_courses.each do |c|
-                %li
-                  = c
-      .col-5
-        %ul
-          %li
-            Az oktató felhasználói adatait 
-            = link_to 'itt', edit_user_registration_path(id: @instructor.id, rank: 'instructor')
-            tudjuk módosítani.
-          %li
-            Ha nincs tárgy kijelölve módosításkor, akkor az oktatott tárgyak nem fognak változni.
-          %li
-            Windows-on a Ctrl, Mac-on a Command lenyomásávál tudunk több tárgyat kijelölni egyszerre.
-.container.text-center
-  = form_for @instructor, as: :instructor, url: instructor_registration_path(id: params[:id]), html: {class: "form-signin"} do |f|
-    .row
-      .col-6.mt-3
-        = f.label 'Név', class: "sr-only"
-        = f.text_field :name, autofocus: true, placeholder: 'Név', required: true, class: "form-control form-control-lg"
-      .col-6
-        .row
-          .col-8.text-right
-            = f.label 'Elnöki posztot betölthet', class: "sr-only"
-            %h1.h3.mb-3.font-weight-normal Elnöki posztot betölthet
-          .col-4.text-left
-            = f.check_box :can_be_president
-        .row
-          .col-8.text-right
-            = f.label 'Titkári posztot betölthet', class: "sr-only"
-            %h1.h3.mb-3.font-weight-normal Titkári posztot betölthet
-          .col-4.text-left
-            = f.check_box :can_be_secretary
-        .row
-          .col-8.text-right
-            = f.label 'Tagi posztot betölthet', class: "sr-only"
-            %h1.h3.mb-3.font-weight-normal Tagi posztot betölthet
-          .col-4.text-left
-            = f.check_box :can_be_member
-    .row.mb-3.mt-3
-      .col-12
-        = f.label 'Az alábbi tárgyakat oktatom', class: "sr-only"
-        %h1.h3.font-weight-normal Az alábbi tárgyakat oktatom
-      .col-3
-      .col-6
-        = f.select :course_list, options_for_select(@courses), {}, {multiple: true, class: "custom-select custom-select-lg"}
-    .row.mb-3.mt-3
-      .col-3
-      .col-6
-        = f.submit 'Módosítás', class: "btn btn-lg btn-primary btn-block"
-    .row
-      .col-12
-        .pull-right.text-right
-          = link_to 'Felhasználói adatok módosítása', edit_user_registration_path(id: @instructor.id, rank: 'instructor'), class: "text-muted"
+.profile
+  .jumbotron
+    .container-fluid
+      .row
+        .col-1
+        .col-10
+          %h1.display-3 Oktató adatai
+          %p Ezen az oldalon lehet megtekinteni és módosítani az oktató záróvizsgához köthető adatait.
+          %hr
+      .row
+        .col-1
+        .col-5
+          %ul
+            %li
+              = @instructor.name
+            %li
+              %span.d-inline
+                Elnök:
+              - if @instructor.can_be_president
+                .text-success.d-inline
+                  lehet
+              - else
+                .text-danger.d-inline
+                  nem lehet
+            %li
+              %span.d-inline
+                Titkár: 
+              - if @instructor.can_be_secretary
+                .text-success.d-inline
+                  lehet
+              - else
+                .text-danger.d-inline
+                  nem lehet
+            %li
+              %span.d-inline
+                Tag: 
+              - if @instructor.can_be_member
+                .text-success.d-inline
+                  lehet
+              - else
+                .text-danger.d-inline
+                  nem lehet
+            %li
+              Az alábbi tárgyakat oktatom
+              %ul
+                - @my_courses.each do |c|
+                  %li
+                    = c
+        .col-5
+          %ul
+            %li
+              Az oktató felhasználói adatait 
+              = link_to 'itt', edit_user_registration_path(id: @instructor.id, rank: 'instructor')
+              tudjuk módosítani.
+            %li
+              Ha nincs tárgy kijelölve módosításkor, akkor az oktatott tárgyak nem fognak változni.
+            %li
+              Windows-on a Ctrl, Mac-on a Command lenyomásávál tudunk több tárgyat kijelölni egyszerre.
+  .container
+    = form_for @instructor, as: :instructor, url: instructor_registration_path(id: params[:id]), html: {class: "form-signin"} do |f|
+      .row
+        .col-6
+          .row.mt-3.mb-3
+            .col-12
+              = f.label 'Név', class: "sr-only"
+              = f.text_field :name, autofocus: true, placeholder: 'Név', required: true, class: "form-control form-control-lg"
+          .row
+            .col-12
+              .row
+                .col-8.text-right
+                  = f.label 'Elnöki posztot betölthet', class: "sr-only"
+                  %h1.h3.mb-3.font-weight-normal Elnöki posztot betölthet
+                .col-4.text-left
+                  = f.check_box :can_be_president
+              .row
+                .col-8.text-right
+                  = f.label 'Titkári posztot betölthet', class: "sr-only"
+                  %h1.h3.mb-3.font-weight-normal Titkári posztot betölthet
+                .col-4.text-left
+                  = f.check_box :can_be_secretary
+              .row
+                .col-8.text-right
+                  = f.label 'Tagi posztot betölthet', class: "sr-only"
+                  %h1.h3.mb-3.font-weight-normal Tagi posztot betölthet
+                .col-4.text-left
+                  = f.check_box :can_be_member
+          .row.mb-3.mt-3
+            .col-12
+              = f.label 'Az alábbi tárgyakat oktatom', class: "sr-only"
+              %h1.h3.font-weight-normal.text-left Az alábbi tárgyakat oktatom
+          .row.mb-3
+            .col-12
+              = f.select :course_list, options_for_select(@courses), {}, {multiple: true, class: "custom-select custom-select-lg"}
+          .row
+            .col-1
+            .col-10
+              = f.submit 'Módosítás', class: "btn btn-lg btn-primary btn-block"
+          .row.mt-3
+            .col-12
+              .pull-right.text-right
+                = link_to 'Felhasználói adatok módosítása', edit_user_registration_path(id: @instructor.id, rank: 'instructor'), class: "text-muted"
+        .col-6
+          .row.mt-3.mb-3
+            .col-12
+              %h1.h3.font-weight-normal.text-center Az alábbi időpontokban vagyok elérhető
+          .row
+            .col-12.my-overflow.border.rounded
+              .container.mt-3
+                .row
+                  - for i in 0..(@present_hours.count - 1)
+                    .col-5.text-right.p-0
+                      %h4.text-secondary.font-weight-normal
+                        = ($exam_date + (i/10).days + (i%10).hours ).to_formatted_s(:custom)
+                    .col-1.text-left.mt-1
+                      = f.check_box :present_hours, { multiple: true, checked: @present_hours[i] == 'x' }, "#{i}", nil

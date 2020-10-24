@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  $exam_date = DateTime.civil(2020, 1, 1, 8, 0, 0, 0)
+
   private
 
   def admin_access

@@ -11,6 +11,7 @@ class Instructor < ApplicationRecord
   validates :can_be_member,     inclusion: { in: [true, false] }
 
   attr_accessor :course_list
+  attr_accessor :present_hours
   
   def safe_delete
     ActiveRecord::Base.transaction do
