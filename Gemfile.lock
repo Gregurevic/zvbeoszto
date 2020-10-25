@@ -248,7 +248,7 @@ DEPENDENCIES
   pg
   puma (~> 4.1)
   rails (~> 6.0.3, >= 6.0.3.3)
-  ruby-cbc
+  ruby-cbc (= 0.3.18)
   sass-rails (>= 6)
   selenium-webdriver
   spring
