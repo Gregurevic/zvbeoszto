@@ -17,6 +17,7 @@ class Instructor < ApplicationRecord
     ActiveRecord::Base.transaction do
       ActiveRecord::Base.connection.execute("DELETE FROM examiners WHERE instructor_id = #{self.id}")
       ActiveRecord::Base.connection.execute("UPDATE students SET instructor_id = NULL WHERE instructor_id = #{self.id}")
+      ActiveRecord::Base.connection.execute("DELETE FROM users WHERE rank = 'instructor' AND rank_id = #{self.id}")
       ActiveRecord::Base.connection.execute("DELETE FROM instructors WHERE id = #{self.id}")
     end
   end

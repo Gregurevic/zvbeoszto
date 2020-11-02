@@ -1,7 +1,6 @@
 class StudentController < ApplicationController
-  before_action :authenticate_user!, only: [:profile, :update]
-  before_action :admin_or_rid?, only: [:profile, :update]
-  before_action :admin_access, only: [:destroy, :destroy_all]
+  before_action :authenticate_user!, only: [:profile, :update, :destroy, :destroy_all]
+  before_action :admin_or_rid?, only: [:profile, :update, :destroy, :destroy_all]
   
   def new
     @instructors = instructors_to_list

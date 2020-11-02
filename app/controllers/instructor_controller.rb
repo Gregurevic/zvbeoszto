@@ -1,7 +1,6 @@
 class InstructorController < ApplicationController
-  before_action :authenticate_user!, only: [:profile, :update]
-  before_action :admin_or_rid?, only: [:profile, :update]
-  before_action :admin_access, only: [:destroy]
+  before_action :authenticate_user!, only: [:profile, :update, :destroy]
+  before_action :admin_or_rid?, only: [:profile, :update, :destroy]
   before_action :construct_courses_and_presence, only: [:create, :update]
   
   def new

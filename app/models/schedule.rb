@@ -37,15 +37,39 @@ class Schedule < ApplicationRecord
     end
 
     ## workloads
-    w_p = m.cont_var(0..Cbc::INF, name: "w_P")
-    w_s = m.cont_var(0..Cbc::INF, name: "w_S")
-    w_m = m.cont_var(0..Cbc::INF, name: "w_M")
+    ## workload boundary constraints
+    a = instructors.count{ |i| i[:can_be_president] }
+    b = instructors.count{ |i| i[:can_be_secretary] }
+    c = instructors.count{ |i| i[:can_be_member] }
+    w_p_p = Array.new(a)
+    w_p_n = Array.new(a)
+    w_s_p = Array.new(b)
+    w_s_n = Array.new(b)
+    w_m_p = Array.new(c)
+    w_m_n = Array.new(c)
+    for i in 0..(a - 1)
+      w_p_p[i] = m.cont_var(0..Cbc::INF, name: "w_p_p_#{i}")
+      w_p_n[i] = m.cont_var(0..Cbc::INF, name: "w_p_n_#{i}")
+      m.enforce(w_p_p[i] + w_p_n[i] >= 15)
+      m.enforce(w_p_p[i] + w_p_n[i] <= 35)
+    end
+    for i in 0..(b - 1)
+      w_s_p[i] = m.cont_var(0..Cbc::INF, name: "w_s_p_#{i}")
+      w_s_n[i] = m.cont_var(0..Cbc::INF, name: "w_s_n_#{i}")
+      m.enforce(w_s_p[i] + w_s_n[i] >= 5)
+      m.enforce(w_s_p[i] + w_s_n[i] <= 15)
+    end
+    for i in 0..(c - 1)
+      w_m_p[i] = m.cont_var(0..Cbc::INF, name: "w_m_p_#{i}")
+      w_m_n[i] = m.cont_var(0..Cbc::INF, name: "w_m_n_#{i}")
+      m.enforce(w_m_p[i] + w_m_n[i] >= 7)
+    end
 
     #constraints
     ## maximum of five instructors
     ## exactly one president in every timeslot
     ## exactly one secretary in every timeslot
-    ## exactly one member in every timeslot
+    ## exactly one or two members in every timeslot
     ## the president has to be available
     ## the secretary has to be available
     for i in 0..(ts - 1)
@@ -67,7 +91,8 @@ class Schedule < ApplicationRecord
       end
       m.enforce(tempP == 1)
       m.enforce(tempS == 1)
-      m.enforce(tempM == 1)
+      m.enforce(tempM >= 1)
+      m.enforce(tempM <= 2)
       m.enforce(inst[i].inject(0, :+) <= 5)
     end
 
@@ -87,6 +112,11 @@ class Schedule < ApplicationRecord
       m.enforce(stud[i].inject(0, :+) == 1)
     end
 
+    ## every student must be present
+    for j in 0..(s_c - 1)
+      m.enforce(stud.map{|e| e[j]}.reduce(:+) == 1)
+    end
+
     ## the president mustn't change
     ## the secretary mustn't change
     for i in (0..(ts - 1)).step(5)
@@ -101,53 +131,40 @@ class Schedule < ApplicationRecord
     end
 
     ## workloads of presidents
-    opt = ts / instructors.count{ |i| i[:can_be_president] }
+    ## workloads of secretaries
+    ## workloads of members
+    opt_p = ts / instructors.count{ |i| i[:can_be_president] }
+    opt_s = ts / instructors.count{ |i| i[:can_be_secretary] }
+    opt_m = ts / instructors.count{ |i| i[:can_be_member] }
+    idx_p = 0
+    idx_s = 0
+    idx_m = 0
     for j in 0..(i_c - 1)
-      temp = 0
+      sum_p = 0
+      sum_s = 0
+      sum_m = 0
       if instructors[j][:can_be_president]
         for i in 0..(ts - 1)
-          temp += inst[i][j]
+          sum_p += inst[i][j]
         end
-        if temp >= opt
-          w_p += (temp - opt)
-        else
-          w_p += (opt - temp)
-        end
+        m.enforce(w_p_p[idx_p] - w_p_n[idx_p] == sum_p - opt_p)
+        idx_p += 1
       end
-    end
-
-    ## workloads of secretaries
-    opt = ts / instructors.count{ |i| i[:can_be_secretary] }
-    for j in 0..(i_c - 1)
-      temp = 0
       if instructors[j][:can_be_secretary]
         for i in 0..(ts - 1)
-          temp += inst[i][j]
+          sum_s += inst[i][j]
         end
-        if temp >= opt
-          w_s += (temp - opt)
-        else
-          w_s += (opt - temp)
-        end
+        m.enforce(w_s_p[idx_s] - w_s_n[idx_s] == sum_s - opt_s)
+        idx_s += 1
       end
-    end
-
-    ## workloads of members
-    opt = ts / instructors.count{ |i| i[:can_be_member] }
-    for j in 0..(i_c - 1)
-      temp = 0
       if instructors[j][:can_be_member]
         for i in 0..(ts - 1)
-          temp += inst[i][j]
+          sum_m += inst[i][j]
         end
-        if temp >= opt
-          w_m += (temp - opt)
-        else
-          w_m += (opt - temp)
-        end
+        m.enforce(w_m_p[idx_m] - w_m_n[idx_m] == sum_m - opt_m)
+        idx_m += 1
       end
     end
-
     
     #objective
     not_present_count = 0
@@ -159,11 +176,13 @@ class Schedule < ApplicationRecord
       end
     end
 
-    m.minimize( not_present_count + 0.2 * w_p + 0.2 * w_s + w_m)
+    m.minimize(not_present_count + w_p_p.inject(0, :+) + w_p_n.inject(0, :+) + w_s_p.inject(0, :+) + w_s_n.inject(0, :+) + w_m_p.inject(0, :+) + w_m_n.inject(0, :+))
 
     #solving
     problem = m.to_problem
     problem.solve
+
+    byebug
 
     #proven solvable
     if problem.proven_infeasible?
@@ -201,10 +220,4 @@ class Schedule < ApplicationRecord
     #return
     return problem.objective_value
   end
-
-  # kérdések
-  ## A workload súlyok rendben vannak?
-  ## Milyen határok közé kell beszorítani a workloadokat? (ergo: hiányzik 3 enforce)
-  ## Jó így a beosztás? * kétségbeesik *
-
 end

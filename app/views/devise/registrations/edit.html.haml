@@ -18,7 +18,7 @@
         %ul
           %li
             Amennyiben a felhasználódat minden adatával törölni szeretnéd, ezt 
-            = link_to 'itt', @user.rank == "student" ? destroy_student_path(@user.rank_id) : @user.rank == 'instructor' ? destroy_instructor_path(@user.rank_id) : applicants_path, class: "text-danger"
+            = link_to 'itt', @user.rank == "student" ? destroy_student_path(id: @user.rank_id) : @user.rank == 'instructor' ? destroy_instructor_path(id: @user.rank_id) : applicants_path, class: "text-danger", data: { confirm: 'Biztosan törlöd a profilodat minden adatával?' }
             teheted meg.
 .container.text-center
   = form_for @user, as: :user, url: registration_path(:user, id: @user.id, rank: @user.rank), html: {method: :put, class: "form-signin"} do |f|

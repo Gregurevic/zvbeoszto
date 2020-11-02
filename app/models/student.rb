@@ -9,15 +9,15 @@ class Student < ApplicationRecord
 
   def delete_with_user
     ActiveRecord::Base.transaction do
+      ActiveRecord::Base.connection.execute("DELETE FROM users WHERE rank = 'student' AND rank_id = #{self.id}")
       ActiveRecord::Base.connection.execute("DELETE FROM students WHERE id = #{self.id}")
-      ActiveRecord::Base.connection.execute("DELETE FROM users WHERE rank = student AND rank_id = #{self.id}")
     end
   end
 
   def delete_all_with_user
     ActiveRecord::Base.transaction do
+      ActiveRecord::Base.connection.execute("DELETE FROM users WHERE rank = 'student'")
       ActiveRecord::Base.connection.execute("DELETE FROM students")
-      ActiveRecord::Base.connection.execute("DELETE FROM users WHERE rank = student")
     end
   end
 
