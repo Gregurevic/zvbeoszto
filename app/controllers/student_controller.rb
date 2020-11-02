@@ -27,6 +27,12 @@ class StudentController < ApplicationController
     @student = Student.find(params[:id])
     @instructors = instructors_to_list
     @courses = courses_to_list
+    unless @student.instructor.nil?
+      @current_instructor = @student.instructor.name + ' (' + User.where(rank: 'instructor', rank_id: @student.instructor_id).pluck(:email)[0] + ')'
+    end
+    unless @student.course.nil?
+      @current_course = @student.course.name + ' (' + @student.course.neptun + ')'
+    end
   end
 
   def update

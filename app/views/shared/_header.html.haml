@@ -13,7 +13,7 @@
             %a.nav-link{:href => applicants_path} Jelentkezések
         - else
           %li.nav-item.active
-            %a.nav-link{:href => current_user.is_instructor? ? edit_instructor_path(id: current_user.id) : edit_student_path(id: current_user.rank_id)} Profilom
+            %a.nav-link{:href => current_user.is_instructor? ? edit_instructor_path(id: current_user.rank_id) : edit_student_path(id: current_user.rank_id)} Profilom
         %li.nav-item.active
           %a.nav-link{:href => schedule_path} Beosztás
         %li.nav-item.active

@@ -35,7 +35,22 @@ class InstructorController < ApplicationController
     @instructor = Instructor.find(params[:id])
     @courses = courses_to_list
     @my_courses = Course.where(id: Examiner.where(instructor_id: @instructor.id).pluck(:course_id)).pluck(:name)
-    @present_hours = @instructor.presence.split('')[0..(Student.count - 1)]
+    #present_hours
+    s_c = Student.count
+    @present_hours = @instructor.presence
+    if @present_hours.nil?
+      @present_hours = []
+      for i in 0..(s_c - 1)
+        @present_hours << " "
+      end
+    elsif @present_hours.length <= (s_c - 1)
+      @present_hours = @present_hours.split('')
+      for i in @present_hours.count..(s_c - 1)
+        @present_hours << " "
+      end
+    else
+      @present_hours = @present_hours.split('')[0..(s_c - 1)]
+    end
   end
 
   def update
@@ -80,15 +95,17 @@ class InstructorController < ApplicationController
       params[:instructor][:course_list] = ""
     end
     #presence
-    temp = ""
-    for i in 0..(Student.count - 1)
-      if params[:instructor][:present_hours].include? i.to_s
-        temp += "x"
-      else
-        temp += " "
+    if params[:instructor][:present_hours].present?
+      temp = ""
+      for i in 0..(Student.count - 1)
+        if params[:instructor][:present_hours].include? i.to_s
+          temp += "x"
+        else
+          temp += " "
+        end
       end
+      params[:instructor][:present_hours] = temp
     end
-    params[:instructor][:present_hours] = temp
   end
 
   def admin_or_rid?

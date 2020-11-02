@@ -15,9 +15,17 @@
           %li
             = @student.neptun
           %li
-            = @student.course.name
+            - if @student.course.nil?
+              .text-danger
+                NULL
+            - else
+              = @student.course.name
           %li
-            = @student.instructor.name
+            - if @student.instructor.nil?
+              .text-danger
+                NULL
+            - else
+              = @student.instructor.name
       .col-5
         %ul
           %li
@@ -36,10 +44,10 @@
     .row.mb-3.mt-3
       .col-6
         = f.label 'Konzulens', class: "sr-only"
-        = f.select :instructor_id, options_for_select(@instructors), {}, {class: "custom-select custom-select-lg"}
+        = f.select :instructor_id, options_for_select(@instructors, @current_instructor), {}, {class: "custom-select custom-select-lg"}
       .col-6
         = f.label 'Vizsgatárgy', class: "sr-only"
-        = f.select :course_id, options_for_select(@courses), {}, {class: "custom-select custom-select-lg"}
+        = f.select :course_id, options_for_select(@courses, @current_course), {}, {class: "custom-select custom-select-lg"}
     .row.mb-3.mt-3
       .col-12
         = f.submit 'Módosítás', class: "btn btn-lg btn-primary btn-block"

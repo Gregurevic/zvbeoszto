@@ -26,6 +26,6 @@
     = f.label 'Az alábbi tárgyakat oktatom', class: "sr-only"
     %h1.h3.font-weight-normal Az alábbi tárgyakat oktatom
     .mb-3.text-muted Windows-on a Ctrl, Mac-on a Command lenyomásávál tud többet kijelölni egyszerre.
-    = f.select :course_list, options_for_select(@courses), {}, {multiple: true, required: true, class: "custom-select custom-select-lg"}
+    = f.select :course_list, options_for_select(@courses), {}, {multiple: true, class: "custom-select custom-select-lg"}
     .mt-3.mb-3
     = f.submit 'Tovább', class: "btn btn-lg btn-primary btn-block"
